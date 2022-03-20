@@ -20,7 +20,7 @@ import member from '../member/MemberAPI';
 import paket from '../paket/PaketAPI';
 import outlet from '../outlet/OutletAPI';
 import DownloadIcon from '@mui/icons-material/Download';
-
+import Pdf from "react-to-pdf";
 
 import { MenuItem, Grid } from '@mui/material';
 import getRole from '../../../utils/access';
@@ -91,6 +91,7 @@ const createPayload = (id_transaksi, id_user, id_member, id_outlet) => {
   return { id_transaksi, id_user, id_member, id_outlet }
 }
 
+const ref = React.createRef();
 
 export default function TransaksiPage() {
   React.useEffect(() => {
@@ -253,19 +254,19 @@ export default function TransaksiPage() {
   };
 
   const templateDetail = [
-      createForm("Jenis Paket", "id_paket", false, true, true, null,
-        (
-          pakets.map((owner) => {
-            return (
-              <MenuItem key={owner.id_paket} value={owner.id_paket} >
-                {owner.jenis}
-              </MenuItem>
-            )
-          }
+    createForm("Jenis Paket", "id_paket", false, true, true, null,
+      (
+        pakets.map((owner) => {
+          return (
+            <MenuItem key={owner.id_paket} value={owner.id_paket} >
+              {owner.jenis}
+            </MenuItem>
           )
+        }
         )
-      ),
-      createForm("Jumlah", "qty", false, true, false, null)
+      )
+    ),
+    createForm("Jumlah", "qty", false, true, false, null)
   ]
 
   const formsAddDetailTransaksi = [
@@ -374,9 +375,6 @@ export default function TransaksiPage() {
                   <IconButton aria-label="edit" onClick={() => handleInfo(row)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="download" onClick={() => handleDownload(row)}>
-                    <DownloadIcon />
-                  </IconButton>
                 </StyledTableCell>
               </StyledTableRow>
             ))}
@@ -440,7 +438,7 @@ export default function TransaksiPage() {
                           </Typography>
                           {item.map(form => (
                             <TextField
-                              onChange={(e)=>handleList(i, form.id, e)}
+                              onChange={(e) => handleList(i, form.id, e)}
                               disabled={form.disabled}
                               required={form.required}
                               select={form.select}
@@ -486,67 +484,76 @@ export default function TransaksiPage() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={styleModal}>
-            <Box sx={{ borderBottom: 'dashed black 2px' }}>
-              <Typography id="modal-modal-title" sx={{ fontWeight: "bold" }} variant="h5" component="h2">
-                Struk Transaksi Laundry
-              </Typography>
-              <Typography variant='p' component='h3'>{getSafe(() => bill.outlet.alamat)}</Typography>
-            </Box>
-            <Box sx={{ borderBottom: 'dashed black 2px', textAlign: 'left', paddingY: '1rem' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>ID Transaksi</Typography>
-                <Typography variant='p' component='h4'>{bill.id_transaksi}</Typography>
+            <div ref={ref}>
+              <Box sx={{ borderBottom: 'dashed black 2px' }}>
+                <Typography id="modal-modal-title" sx={{ fontWeight: "bold" }} variant="h5" component="h2">
+                  Struk Transaksi Laundry
+                </Typography>
+                <Typography variant='p' component='h3'>{getSafe(() => bill.outlet.alamat)}</Typography>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>Tanggal Diterima</Typography>
-                <Typography variant='p' component='h4'>{bill.tgl_diterima}</Typography>
+              <Box sx={{ borderBottom: 'dashed black 2px', textAlign: 'left', paddingY: '1rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>ID Transaksi</Typography>
+                  <Typography variant='p' component='h4'>{bill.id_transaksi}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>Tanggal Diterima</Typography>
+                  <Typography variant='p' component='h4'>{bill.tgl_diterima}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>Tanggal Batas</Typography>
+                  <Typography variant='p' component='h4'>{bill.batas_waktu}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>Tanggal Dibayar</Typography>
+                  <Typography variant='p' component='h4'>{bill.tgl_bayar}</Typography>
+                </Box>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>Tanggal Batas</Typography>
-                <Typography variant='p' component='h4'>{bill.batas_waktu}</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>Tanggal Dibayar</Typography>
-                <Typography variant='p' component='h4'>{bill.tgl_bayar}</Typography>
-              </Box>
-            </Box>
-            <Box sx={{ borderBottom: 'dashed black 2px', textAlign: 'left', paddingY: '1rem' }}>
-              {
-                detail.map(item => (
-                  <Box sx={{ paddingY: '0.2rem' }}>
-                    <Typography sx={{ fontWeight: "bold" }} variant='p' component='h3'>{item.paket.jenis}</Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                      <Typography variant='p' component='h5'>{item.qty}x{item.paket.harga}</Typography>
-                      <Typography variant='p' component='h4'>{item.qty * item.paket.harga}</Typography>
+              <Box sx={{ borderBottom: 'dashed black 2px', textAlign: 'left', paddingY: '1rem' }}>
+                {
+                  detail.map(item => (
+                    <Box sx={{ paddingY: '0.2rem' }}>
+                      <Typography sx={{ fontWeight: "bold" }} variant='p' component='h3'>{item.paket.jenis}</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                        <Typography variant='p' component='h5'>{item.qty}x{item.paket.harga}</Typography>
+                        <Typography variant='p' component='h4'>{item.qty * item.paket.harga}</Typography>
+                      </Box>
                     </Box>
-                  </Box>
-                ))
-              }
-            </Box>
-            <Box sx={{ textAlign: 'left', paddingTop: '2rem' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h2'>Total</Typography>
-                <Typography variant='p' component='h2'>{detail.total}</Typography>
+                  ))
+                }
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>Status Pengerjaan</Typography>
-                <Typography variant='p' component='h4'>{bill.status}</Typography>
+              <Box sx={{ textAlign: 'left', paddingTop: '2rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h2'>Total</Typography>
+                  <Typography variant='p' component='h2'>{detail.total}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>Status Pengerjaan</Typography>
+                  <Typography variant='p' component='h4'>{bill.status}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
+                  <Typography variant='p' component='h4'>Status Bayar</Typography>
+                  <Typography variant='p' component='h4'>{bill.dibayar}</Typography>
+                </Box>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row' }}>
-                <Typography variant='p' component='h4'>Status Bayar</Typography>
-                <Typography variant='p' component='h4'>{bill.dibayar}</Typography>
+              <Box sx={{ textAlign: 'left', paddingTop: '1.5rem' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <Button type="submit" variant="contained" sx={{ backgroundColor: 'green' }} onClick={handleOpenStatus}>
+                    Update Status
+                  </Button>
+                  <Button type="submit" variant="contained" sx={{ display: showButton, ml: '3px' }} onClick={() => handleBayar()}>
+                    Bayar
+                  </Button>
+                  <Pdf targetRef={ref} filename="struk-pembayaran.pdf" x={.5} y={.5} scale={0.8}>
+                    {({ toPdf }) =>
+                      <Button variant="contained" sx={{ ml: '3px', backgroundColor: 'yellow' }} onClick={toPdf}>
+                        Download
+                      </Button>
+                    }
+                  </Pdf>
+                </Box>
               </Box>
-            </Box>
-            <Box sx={{ textAlign: 'left', paddingTop: '1.5rem' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Button type="submit" variant="contained" sx={{ backgroundColor: 'green' }} onClick={handleOpenStatus}>
-                  Update Status
-                </Button>
-                <Button type="submit" variant="contained" sx={{ display: showButton, ml: '3px' }} onClick={() => handleBayar()}>
-                  Bayar
-                </Button>
-              </Box>
-            </Box>
+            </div>
           </Box>
         </Modal>
 

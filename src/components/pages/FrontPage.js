@@ -9,12 +9,9 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -22,16 +19,17 @@ import Paper from '@mui/material/Paper';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { makeStyles } from '@mui/styles';
 
 // icon
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import MemberIcon from '@mui/icons-material/Dashboard';
-import OutletIcon from '@mui/icons-material/Dashboard';
-import PaketIcon from '@mui/icons-material/Dashboard';
-import UserIcon from '@mui/icons-material/Dashboard';
-import TransaksiIcon from '@mui/icons-material/Dashboard';
+import MemberIcon from '@mui/icons-material/Group';
+import OutletIcon from '@mui/icons-material/Store';
+import PaketIcon from '@mui/icons-material/LocalGroceryStore';
+import UserIcon from '@mui/icons-material/AccountBox';
+import TransaksiIcon from '@mui/icons-material/ReceiptLong';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -298,11 +296,6 @@ export default function FrontPage() {
                 >
                   MY LAUNDRY
                 </Typography>
-                <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
               </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
