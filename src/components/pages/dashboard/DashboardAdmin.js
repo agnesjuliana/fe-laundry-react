@@ -101,7 +101,5 @@ export const homeAdmin = (
         </Typography>
       </div>
     </Grid>
-
-    <Typography>Transaction</Typography>
   </Grid>
 );

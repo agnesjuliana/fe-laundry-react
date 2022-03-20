@@ -9,23 +9,17 @@ import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+// import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { makeStyles } from "@mui/styles";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 
 // icon
 import DashboardIcon from "@mui/icons-material/DashboardRounded";
@@ -44,26 +38,6 @@ import getRole from "../../utils/access";
 const base_url = "http://localhost:8000/api";
 
 const drawerWidth = 240;
-
-const CssTextField = styled(TextField)({
-  "& label.Mui-focused": {
-    color: "green",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "green",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      border: "none",
-    },
-    "&:hover fieldset": {
-      borderColor: "yellow",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "green",
-    },
-  },
-});
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -233,7 +207,7 @@ export default function FrontPage() {
       password: data.get("password"),
     };
 
-    localStorage.setItem("role", "admin");
+    localStorage.setItem("role", "owner");
 
     const url = base_url + "/user/login";
 
