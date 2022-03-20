@@ -1,139 +1,191 @@
-import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { makeStyles } from '@mui/styles';
+import * as React from "react";
+import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import MuiDrawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import MuiAppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import MenuIcon from "@mui/icons-material/Menu";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { makeStyles } from "@mui/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 // icon
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import MemberIcon from '@mui/icons-material/Dashboard';
-import OutletIcon from '@mui/icons-material/Dashboard';
-import PaketIcon from '@mui/icons-material/Dashboard';
-import UserIcon from '@mui/icons-material/Dashboard';
-import TransaksiIcon from '@mui/icons-material/Dashboard';
+import DashboardIcon from "@mui/icons-material/DashboardRounded";
+import MemberIcon from "@mui/icons-material/AssignmentIndRounded";
+import OutletIcon from "@mui/icons-material/LocalConvenienceStoreRounded";
+import PaketIcon from "@mui/icons-material/Inventory2Rounded";
+import UserIcon from "@mui/icons-material/GroupRounded";
+import TransaksiIcon from "@mui/icons-material/ReceiptLongRounded";
+import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { MainRoute } from './main/MainRoute';
-import getRole from '../../utils/access'
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { MainRoute } from "./main/MainRoute";
+import getRole from "../../utils/access";
 
-const base_url = "http://localhost:8000/api"
+const base_url = "http://localhost:8000/api";
 
 const drawerWidth = 240;
 
+const CssTextField = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "green",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "green",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+    "&:hover fieldset": {
+      borderColor: "yellow",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
+});
+
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
+  shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
+  transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  "& .MuiDrawer-paper": {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: "border-box",
+    ...(!open && {
+      overflowX: "hidden",
+      transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up("sm")]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
-const mdTheme = createTheme();
+const InputStyle = styled("input")(({ theme }) => ({
+  marginTop: 6,
+  border: "none",
+  borderRadius: 6,
+  paddingLeft: 16,
+  paddingRight: 16,
+  fontFamily: "Poppins",
+  fontSize: 14,
+  fontWeight: 300,
+  width: "100%",
+  letterSpacing: 0.3,
+  height: 40,
+  backgroundColor: "#E5D8C7",
+  "&:focus": {
+    border: "none",
+    outline: "none",
+  },
+}));
+
+const mdTheme = createTheme({
+  typography: {
+    fontFamily: "Poppins",
+  },
+});
 
 const useStyles = makeStyles({
   leftContainer: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }
-})
-
-
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  },
+});
 
 const createNavList = (name, to, icon, presence) => {
-  return { name, to, icon, presence }
-}
-
+  return { name, to, icon, presence };
+};
 
 export default function FrontPage() {
   React.useEffect(() => {
-    const user = getRole()
+    const user = getRole();
     if (user !== undefined) {
-      handleNav(user)
+      handleNav(user);
     } else {
-      console.log('denied')
+      console.log("denied");
     }
-  }, [])
+  }, []);
 
-  const [navPresence, setNavPresence] = React.useState('none');
-  const [loginPresence, setLoginPresence] = React.useState('block');
+  const [navPresence, setNavPresence] = React.useState("block");
+  const [loginPresence, setLoginPresence] = React.useState("none");
   const [navlistPresence, setnavlistPresence] = React.useState({
-    dashboard: 'block',
-    member: 'block',
-    outlet: 'block',
-    paket: 'block',
-    user: 'block',
-    transaksi: 'block'
+    dashboard: "block",
+    member: "block",
+    outlet: "block",
+    paket: "block",
+    user: "block",
+    transaksi: "block",
   });
 
   const navList = [
-    createNavList('Dashboard', '/dashboard', <DashboardIcon />, navlistPresence.dashboard),
-    createNavList('Member', '/member', <MemberIcon />, navlistPresence.member),
-    createNavList('Outlet', '/outlet', <OutletIcon />, navlistPresence.outlet),
-    createNavList('Paket', '/paket', <PaketIcon />, navlistPresence.paket),
-    createNavList('User', '/user', <UserIcon />, navlistPresence.user),
-    createNavList('Transaksi', '/transaksi', <TransaksiIcon />, navlistPresence.transaksi),
-  ]
-
+    createNavList(
+      "Dashboard",
+      "/dashboard",
+      <DashboardIcon />,
+      navlistPresence.dashboard
+    ),
+    createNavList("Member", "/member", <MemberIcon />, navlistPresence.member),
+    createNavList("Outlet", "/outlet", <OutletIcon />, navlistPresence.outlet),
+    createNavList("Paket", "/paket", <PaketIcon />, navlistPresence.paket),
+    createNavList("User", "/user", <UserIcon />, navlistPresence.user),
+    createNavList(
+      "Transaksi",
+      "/transaksi",
+      <TransaksiIcon />,
+      navlistPresence.transaksi
+    ),
+  ];
 
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -142,89 +194,155 @@ export default function FrontPage() {
 
   const handleNav = (user) => {
     const newList = {
-      dashboard: 'block',
-      member: 'block',
-      outlet: 'block',
-      paket: 'block',
-      user: 'block',
-      transaksi: 'block'
+      dashboard: "block",
+      member: "block",
+      outlet: "block",
+      paket: "block",
+      user: "block",
+      transaksi: "block",
+    };
+
+    if (user === "kasir") {
+      newList.outlet = "none";
+      newList.paket = "none";
+      newList.user = "none";
     }
 
-    if (user === 'kasir') {
-      newList.outlet = 'none'
-      newList.paket = 'none'
-      newList.user = 'none'
+    if (user === "owner") {
+      newList.member = "none";
+      newList.outlet = "none";
+      newList.paket = "none";
+      newList.user = "none";
+      newList.transaksi = "none";
     }
 
-    if (user === 'owner') {
-      newList.member = 'none'
-      newList.outlet = 'none'
-      newList.paket = 'none'
-      newList.user = 'none'
-      newList.transaksi = 'none'
-    }
-
-    setnavlistPresence(newList)
-    setNavPresence('block')
-    setLoginPresence('none')
-  }
+    setnavlistPresence(newList);
+    setNavPresence("block");
+    setLoginPresence("none");
+  };
 
   // import styles
   const classes = useStyles();
-  let history = useNavigate()
+  let history = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const payload = {
-      username: data.get('username'),
-      password: data.get('password'),
-    }
+      username: data.get("username"),
+      password: data.get("password"),
+    };
 
-    const url = base_url + '/user/login'
+    localStorage.setItem("role", "admin");
+
+    const url = base_url + "/user/login";
 
     try {
-      let result = await axios.post(url, payload)
+      let result = await axios.post(url, payload);
       if (result.status === 200) {
-        window.location = '/dashboard'
-        localStorage.setItem("role", result.data.data.role)
-        localStorage.setItem("token", result.data.data.token)
+        window.location = "/dashboard";
+        localStorage.setItem("role", result.data.data.role);
+        localStorage.setItem("token", result.data.data.token);
 
         // set path
-        history.push("/dashboard")
+        history.push("/dashboard");
 
-        handleNav(result.data.data.role)
+        handleNav(result.data.data.role);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   return (
     <>
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: loginPresence }}>
-          <Grid container component="main" sx={{ height: '100vh' }}>
+          <Grid container component="main" sx={{ height: "100vh" }}>
             <CssBaseline />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={6}
+              square
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "none",
+                backgroundColor: "#FFF0DE",
+              }}
+            >
               <Box
                 sx={{
                   my: 8,
                   mx: 4,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                  Sign in
+                <Typography
+                  component="h1"
+                  sx={{ width: 400, fontWeight: 700, fontSize: 30 }}
+                >
+                  Sign in to MyLaundry
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                  <TextField
+                <Typography
+                  component="h1"
+                  sx={{
+                    width: 400,
+                    fontWeight: 500,
+                    fontSize: 14,
+                    color: "#A27741",
+                  }}
+                >
+                  Welcome back! Sign in with your data that you entered during
+                  registrations
+                </Typography>
+                <Box
+                  component="form"
+                  noValidate
+                  onSubmit={handleSubmit}
+                  sx={{ mt: 3 }}
+                >
+                  <div style={{ width: 400, marginTop: 16 }}>
+                    <Typography
+                      sx={{ fontWeight: 600, fontSize: 12, ml: 1, mr: 1 }}
+                    >
+                      Username
+                    </Typography>
+                    <InputStyle
+                      required
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoComplete="username"
+                      placeholder="username"
+                      autoFocus
+                      type={"text"}
+                    />
+                  </div>
+
+                  <div style={{ width: 400, marginTop: 16 }}>
+                    <Typography
+                      sx={{ fontWeight: 600, fontSize: 12, ml: 1, mr: 1 }}
+                    >
+                      Password
+                    </Typography>
+                    <InputStyle
+                      required
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      placeholder="password"
+                    />
+                  </div>
+                  {/* <CssTextField
                     margin="normal"
                     required
                     fullWidth
@@ -233,6 +351,10 @@ export default function FrontPage() {
                     name="username"
                     autoComplete="username"
                     autoFocus
+                    sx={{
+                      backgroundColor: "#eaeef2",
+                      borderRadius: 2,
+                    }}
                   />
 
                   <TextField
@@ -244,37 +366,72 @@ export default function FrontPage() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                  />
+                  /> */}
+
+                  <Grid
+                    container
+                    justifyContent={"space-between"}
+                    sx={{ mt: 1 }}
+                  >
+                    <div></div>
+                    <Typography sx={{ fontSize: 13 }}>
+                      Forget Your Password?
+                    </Typography>
+                  </Grid>
                   <Button
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      backgroundColor: "#FF8B01",
+                      letterSpacing: 0.7,
+
+                      pt: 1,
+                      pb: 1,
+                      boxShadow: "0px 12px 20px #FF8B0126",
+                      borderRadius: 2,
+                      "&:hover": {
+                        backgroundColor: "#EA7F00",
+                        boxShadow: "none",
+                      },
+                    }}
                   >
                     Sign In
                   </Button>
+                  <Typography align="center" sx={{ mt: 2 }}>
+                    Don't have an Account? Register
+                  </Typography>
                 </Box>
               </Box>
             </Grid>
+
             <Grid
               item
               xs={false}
               sm={4}
               md={7}
               className={classes.leftContainer}
-            >
-            </Grid>
+            ></Grid>
           </Grid>
         </Box>
 
         {/* Page with sidebar route */}
         <Box sx={{ display: navPresence }}>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <AppBar position="absolute" open={open}>
+            <AppBar
+              position="absolute"
+              open={open}
+              sx={{
+                background: "#FFF0DE",
+                boxShadow: "0px 8px 20px #8689741A",
+              }}
+            >
               <Toolbar
                 sx={{
-                  pr: '24px', // keep right padding when drawer closed
+                  pr: "24px", // keep right padding when drawer closed
                 }}
               >
                 <IconButton
@@ -283,8 +440,9 @@ export default function FrontPage() {
                   aria-label="open drawer"
                   onClick={toggleDrawer}
                   sx={{
-                    marginRight: '36px',
-                    ...(open && { display: 'none' }),
+                    color: "#A27741",
+                    marginRight: "36px",
+                    ...(open && { display: "none" }),
                   }}
                 >
                   <MenuIcon />
@@ -294,23 +452,21 @@ export default function FrontPage() {
                   variant="h6"
                   color="inherit"
                   noWrap
-                  sx={{ flexGrow: 1 }}
+                  sx={{ flexGrow: 1, color: "#A27741", fontWeight: 600 }}
                 >
-                  MY LAUNDRY
+                  My Laundry
                 </Typography>
                 <IconButton color="inherit">
-                  <Badge badgeContent={4} color="secondary">
-                    <NotificationsIcon />
-                  </Badge>
+                  <PersonOutlineRoundedIcon sx={{ color: "#A27741" }} />
                 </IconButton>
               </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
               <Toolbar
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                   px: [1],
                 }}
               >
@@ -320,30 +476,54 @@ export default function FrontPage() {
               </Toolbar>
               <Divider />
               <List component="nav">
-                {
-                  navList.map(item => (
-                    <Link to={item.to} style={{ textDecoration: 'none', color: 'black', display: item.presence }}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          {item.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={item.name} />
-                      </ListItemButton>
-                    </Link>
-                  ))
-                }
+                {navList.map((item, i) => (
+                  <Link
+                    key={i}
+                    to={item.to}
+                    style={{
+                      textDecoration: "none",
+                      color: "black",
+                      display: item.presence,
+                      paddingLeft: 8,
+                      paddingRight: 8,
+                    }}
+                  >
+                    <ListItemButton
+                      sx={{
+                        borderRadius: 2,
+                        margin: "8px 0px",
+                        "&:hover": {
+                          backgroundColor: "#FFF0DE",
+                        },
+                      }}
+                    >
+                      <ListItemIcon
+                        sx={{
+                          color: "#A27741",
+                        }}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={item.name}
+                        sx={{ color: "#A27741" }}
+                      />
+                    </ListItemButton>
+                  </Link>
+                ))}
               </List>
             </Drawer>
             <Box
               component="main"
               sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[900],
+                // backgroundColor: (theme) =>
+                //   theme.palette.mode === "light"
+                //     ? theme.palette.grey[100]
+                //     : theme.palette.grey[900],
+                backgroundColor: "#FAFAFA",
                 flexGrow: 1,
-                height: '100vh',
-                overflow: 'auto',
+                height: "100vh",
+                overflow: "auto",
               }}
             >
               <Toolbar />
@@ -357,6 +537,5 @@ export default function FrontPage() {
         </Box>
       </ThemeProvider>
     </>
-  )
+  );
 }
-

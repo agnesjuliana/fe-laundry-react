@@ -1,10 +1,8 @@
-import './App.css';
-import FrontPage from './components/pages/FrontPage';
+import "./App.css";
+import FrontPage from "./components/pages/FrontPage";
 
 function App() {
-  return(
-    <FrontPage />
-  )
+  return <FrontPage />;
 }
 
 export default App;
