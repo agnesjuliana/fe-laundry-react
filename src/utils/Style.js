@@ -4,20 +4,20 @@ const mdTheme = createTheme(
   {
     palette: {
       primary: {
-        soft: '#f3e5f5',
-        light: '#af52bf',
-        main: '#9c27b0',
-        dark: '#6d1b7b',
+        light: '#ffd967',
+        main: '#ffa735',
+        dark: '#c77800',
         contrastText: '#ffffff',
       },
       secondary: {
-        light: '#f73378',
-        main: '#f50057',
-        dark: '#ab003c',
+        soft: '#f3e5f5',
+        light: '#62eeff',
+        main: '#00bbd3',
+        dark: '#008ba2',
         contrastText: '#ffffff',
       },
       action: {
-          hover: '#f3e5f5'
+        hover: '#fffde7'
       }
     },
   }

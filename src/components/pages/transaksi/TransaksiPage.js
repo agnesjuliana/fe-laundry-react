@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import transaksi from './TransaksiAPI';
@@ -19,14 +18,13 @@ import user from '../user/UserAPI';
 import member from '../member/MemberAPI';
 import paket from '../paket/PaketAPI';
 import outlet from '../outlet/OutletAPI';
-import DownloadIcon from '@mui/icons-material/Download';
 import Pdf from "react-to-pdf";
 
 import { MenuItem, Grid } from '@mui/material';
 import getRole from '../../../utils/access';
 
 // icon
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import EditIcon from '@mui/icons-material/Edit';
 
 function getSafe(fn, defaultVal) {
@@ -328,10 +326,27 @@ export default function TransaksiPage() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', width: '100%' }}>
-        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
-          <b>Kasir Laundry</b>
-        </Typography>
+      <Box component={Paper} elevation={5} sx={{
+        display: 'flex', flexDirection: 'row',
+        width: '100%', borderRadius: 1.5, padding: 2, my: 2
+      }}>
+        <Box component={Paper} elevation={0} sx={{
+          display: 'flex', flexDirection: 'row',
+          justifyContent: 'space-between', width: '100%', borderRadius: 1.5, padding: 2, backgroundColor: '#fffde7', border: 'solid #ffd967 1px'
+        }}>
+          <Typography noWrap sx={{ textAlign: 'center', color: '#ffa735' }} variant='h5' component='h5'>
+            <b>Transaksi</b>
+          </Typography>
+          <Button
+            elevation={5}
+            sx={{ borderRadius: 2 }}
+            onClick={() => handleAdd()}
+            color="secondary"
+            variant="contained" startIcon={<AddBoxIcon />}
+          >
+            Tambah Transaksi
+          </Button>
+        </Box>
       </Box>
       <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
       <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
@@ -370,17 +385,6 @@ export default function TransaksiPage() {
           </TableBody>
         </Table>
       </TableContainer>
-      </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
-        <Button
-          variant="contained"
-          elevation={5}
-          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
-          onClick={() => handleAdd()}
-          color="secondary"
-        >
-          Tambah Transaksi
-        </Button>
       </Box>
 
 

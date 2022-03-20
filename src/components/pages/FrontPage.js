@@ -92,9 +92,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const useStyles = makeStyles({
   leftContainer: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // background: 'linear-gradient(to right, #00bbd3, #ffd967)',
+    // backgroundColor: '#fffde7',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  rightContainer: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
-    background: 'linear-gradient(#9c27b0, #ffc4ff)',
-    // backgroundColor: 'red',
+    // background: 'linear-gradient(to right, #00bbd3 80%, )',
+    backgroundColor: '#ffd967',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -130,12 +138,12 @@ export default function FrontPage() {
   });
 
   const navList = [
-    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{color:'white'}}/>, navlistPresence.dashboard),
+    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{ color: 'white' }} />, navlistPresence.dashboard),
     createNavList('User', '/user', <UserIcon sx={{ color: 'white' }} />, navlistPresence.user),
     createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'white' }} />, navlistPresence.paket),
-    createNavList('Outlet', '/outlet', <OutletIcon sx={{color:'white'}}/>, navlistPresence.outlet),
+    createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'white' }} />, navlistPresence.outlet),
     createNavList('Member', '/member', <MemberIcon sx={{ color: 'white' }} />, navlistPresence.member),
-    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{color:'white'}}/>, navlistPresence.transaksi),
+    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.transaksi),
   ]
 
 
@@ -219,35 +227,34 @@ export default function FrontPage() {
             <CssBaseline />
             <Grid
               item
-              xs={12}
+              xs={false}
+              sm={4}
+              md={7}
               className={classes.leftContainer}
             >
               <Box
                 sx={{
-                  marginTop: 8,
+                  marginTop: 20,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                 }}
               >
-                <Box component={Paper}
+                <Box component={Paper} elevation={5}
                   sx={{
                     padding: 4,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    width: '30vw',
-                    borderRadius: 4,
+                    width: '25vw',
+                    borderRadius: 3,
                   }}
                 >
 
-                  <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5">
-                    Sign in
+                  <Typography component="h1" variant="h5" >
+                    Login
                   </Typography>
-                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, justifyContent: 'center' }}>
+                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                       margin="normal"
                       required
@@ -267,17 +274,37 @@ export default function FrontPage() {
                       type="password"
                       id="password"
                       autoComplete="current-password"
+                      sx={{ borderRadius: 3 }}
                     />
                     <Button
                       type="submit"
+                      fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2, width: '30%', left: '35%'}}
-                      color='secondary'
+                      sx={{ mt: 3, mb: 2 }}
                     >
                       Sign In
                     </Button>
                   </Box>
                 </Box>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ backgroundColor: "#ffd967" }}>
+              <Box
+                sx={{
+                  paddingTop: '40%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  width: '100%'
+                }}
+              >
+                <Typography noWrap sx={{ textAlign: 'center' }} variant='h2' component='h5'>
+                  <b>Welcome</b>
+                </Typography>
+                <Typography noWrap sx={{ textAlign: 'center' }} variant='h3' component='h5'>
+                  <b>Laundry Family</b>
+                </Typography>
               </Box>
             </Grid>
           </Grid>
@@ -314,8 +341,8 @@ export default function FrontPage() {
                 >
                   <b>Cling Laundry</b>
                 </Typography>
-                <IconButton color="inherit" onClick={()=>handleLogout()}>
-                    <LogoutIcon />
+                <IconButton color="inherit" onClick={() => handleLogout()}>
+                  <LogoutIcon />
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -332,7 +359,7 @@ export default function FrontPage() {
                   <ChevronLeftIcon />
                 </IconButton>
               </Toolbar>
-              <Divider/>
+              <Divider />
               <List component="nav" >
                 {
                   navList.map(item => (
@@ -361,7 +388,7 @@ export default function FrontPage() {
               }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                   <MainRoute />
                 </Grid>

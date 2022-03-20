@@ -22,6 +22,8 @@ import getRole from '../../../utils/access';
 // icon
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+
 
 const styleModal = {
   position: 'absolute',
@@ -156,10 +158,27 @@ export default function PaketPage() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
-        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
-          <b>Daftar Paket Laundry</b>
-        </Typography>
+      <Box component={Paper} elevation={5} sx={{
+        display: 'flex', flexDirection: 'row',
+        width: '100%', borderRadius: 1.5, padding: 2, my: 2
+      }}>
+        <Box component={Paper} elevation={0} sx={{
+          display: 'flex', flexDirection: 'row',
+          justifyContent: 'space-between', width: '100%', borderRadius: 1.5, padding: 2, backgroundColor: '#fffde7', border: 'solid #ffd967 1px'
+        }}>
+          <Typography noWrap sx={{ textAlign: 'center', color: '#ffa735' }} variant='h5' component='h5'>
+            <b>List Paket</b>
+          </Typography>
+          <Button
+            elevation={5}
+            sx={{ borderRadius: 2 }}
+            onClick={() => handleAdd()}
+            color="secondary"
+            variant="contained" startIcon={<AddBoxIcon />}
+          >
+            Tambah Paket
+          </Button>
+        </Box>
       </Box>
       <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
       <TableContainer component={Paper} elevation={0} sx={{borderRadius:3}}>
@@ -193,17 +212,6 @@ export default function PaketPage() {
           </TableBody>
         </Table>
       </TableContainer>
-      </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
-        <Button
-          variant="contained"
-          elevation={5}
-          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
-          onClick={() => handleAdd()}
-          color="secondary"
-        >
-          Tambah Paket
-        </Button>
       </Box>
 
       {/* modal start */}
