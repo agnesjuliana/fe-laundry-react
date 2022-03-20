@@ -34,11 +34,12 @@ const styleModal = {
   textAlign: 'center',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -170,45 +171,60 @@ export default function UserPage() {
 
   return (
     <>
-      <h1>User</h1>
-      <IconButton aria-label="add" onClick={() => handleAdd()}>
-        <AddCircleIcon sx={{ fontSize: '2rem' }} />
-      </IconButton>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell>Nama User</StyledTableCell>
-              <StyledTableCell>Username</StyledTableCell>
-              <StyledTableCell>Password</StyledTableCell>
-              <StyledTableCell>Role</StyledTableCell>
-              <StyledTableCell>Aksi</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, i) => (
-              <StyledTableRow key={row.id_user}>
-                <StyledTableCell>{i + 1}</StyledTableCell>
-                <StyledTableCell>{row.id_user}</StyledTableCell>
-                <StyledTableCell>{row.nama_user}</StyledTableCell>
-                <StyledTableCell>{row.username}</StyledTableCell>
-                <StyledTableCell>{row.password}</StyledTableCell>
-                <StyledTableCell>{row.role}</StyledTableCell>
-                <StyledTableCell>
-                  <IconButton aria-label="edit" onClick={() => handleUpdate(row)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(row)}>
-                    <DeleteIcon />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
+          <b>User Laundry</b>
+        </Typography>
+      </Box>
+      <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
+        <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>#</StyledTableCell>
+                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>Nama User</StyledTableCell>
+                <StyledTableCell>Username</StyledTableCell>
+                <StyledTableCell>Password</StyledTableCell>
+                <StyledTableCell>Role</StyledTableCell>
+                <StyledTableCell>Aksi</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, i) => (
+                <StyledTableRow key={row.id_user}>
+                  <StyledTableCell>{i + 1}</StyledTableCell>
+                  <StyledTableCell>{row.id_user}</StyledTableCell>
+                  <StyledTableCell>{row.nama_user}</StyledTableCell>
+                  <StyledTableCell>{row.username}</StyledTableCell>
+                  <StyledTableCell>{row.password}</StyledTableCell>
+                  <StyledTableCell>{row.role}</StyledTableCell>
+                  <StyledTableCell>
+                    <IconButton aria-label="edit" onClick={() => handleUpdate(row)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={() => handleDelete(row)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
+        <Button
+          variant="contained"
+          elevation={5}
+          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+          onClick={() => handleAdd()}
+          color="secondary"
+        >
+          Tambah Member
+        </Button>
+      </Box>
 
 
       {/* modal start */}
@@ -222,7 +238,7 @@ export default function UserPage() {
         >
           <Box sx={styleModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Update User
+              <b>MODAL USER</b>
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               {forms.map((form, i) => (
@@ -239,8 +255,8 @@ export default function UserPage() {
                   name={form.id}
                   size='small'
                   InputLabelProps={{ shrink: true }}
-                  sx={{textAlign: "left"}}
-                  
+                  sx={{ textAlign: "left" }}
+
                 >
                   {form.nested}
                 </TextField>
@@ -250,7 +266,7 @@ export default function UserPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
               >
                 Submit
               </Button>

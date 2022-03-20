@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -30,11 +30,14 @@ import PaketIcon from '@mui/icons-material/LocalGroceryStore';
 import UserIcon from '@mui/icons-material/AccountBox';
 import TransaksiIcon from '@mui/icons-material/ReceiptLong';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainRoute } from './main/MainRoute';
 import getRole from '../../utils/access'
+import mdTheme from '../../utils/Style'
+
 
 const base_url = "http://localhost:8000/api"
 
@@ -43,6 +46,7 @@ const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
+  backgroundColor: theme.palette.primary.light,
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -61,6 +65,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
+      backgroundColor: theme.palette.primary.main,
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -84,11 +89,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme();
 
 const useStyles = makeStyles({
   leftContainer: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
+    background: 'linear-gradient(#9c27b0, #ffc4ff)',
+    // backgroundColor: 'red',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -124,12 +130,12 @@ export default function FrontPage() {
   });
 
   const navList = [
-    createNavList('Dashboard', '/dashboard', <DashboardIcon />, navlistPresence.dashboard),
-    createNavList('Member', '/member', <MemberIcon />, navlistPresence.member),
-    createNavList('Outlet', '/outlet', <OutletIcon />, navlistPresence.outlet),
-    createNavList('Paket', '/paket', <PaketIcon />, navlistPresence.paket),
-    createNavList('User', '/user', <UserIcon />, navlistPresence.user),
-    createNavList('Transaksi', '/transaksi', <TransaksiIcon />, navlistPresence.transaksi),
+    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{color:'white'}}/>, navlistPresence.dashboard),
+    createNavList('User', '/user', <UserIcon sx={{ color: 'white' }} />, navlistPresence.user),
+    createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'white' }} />, navlistPresence.paket),
+    createNavList('Outlet', '/outlet', <OutletIcon sx={{color:'white'}}/>, navlistPresence.outlet),
+    createNavList('Member', '/member', <MemberIcon sx={{ color: 'white' }} />, navlistPresence.member),
+    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{color:'white'}}/>, navlistPresence.transaksi),
   ]
 
 
@@ -199,68 +205,80 @@ export default function FrontPage() {
 
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("role")
+    localStorage.removeItem("token")
+    window.location = '/'
+  }
+
   return (
     <>
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: loginPresence }}>
           <Grid container component="main" sx={{ height: '100vh' }}>
             <CssBaseline />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid
+              item
+              xs={12}
+              className={classes.leftContainer}
+            >
               <Box
                 sx={{
-                  my: 8,
-                  mx: 4,
+                  marginTop: 8,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                  Sign in
-                </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                  />
+                <Box component={Paper}
+                  sx={{
+                    padding: 4,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    width: '30vw',
+                    borderRadius: 4,
+                  }}
+                >
 
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Sign In
-                  </Button>
+                  <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                  <Typography component="h1" variant="h5">
+                    Sign in
+                  </Typography>
+                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, justifyContent: 'center' }}>
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoComplete="username"
+                      autoFocus
+                    />
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                    />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2, width: '30%', left: '35%'}}
+                      color='secondary'
+                    >
+                      Sign In
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
-            </Grid>
-            <Grid
-              item
-              xs={false}
-              sm={4}
-              md={7}
-              className={classes.leftContainer}
-            >
             </Grid>
           </Grid>
         </Box>
@@ -269,7 +287,7 @@ export default function FrontPage() {
         <Box sx={{ display: navPresence }}>
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="absolute" open={open}>
+            <AppBar position="absolute" open={open} >
               <Toolbar
                 sx={{
                   pr: '24px', // keep right padding when drawer closed
@@ -294,8 +312,11 @@ export default function FrontPage() {
                   noWrap
                   sx={{ flexGrow: 1 }}
                 >
-                  MY LAUNDRY
+                  <b>Cling Laundry</b>
                 </Typography>
+                <IconButton color="inherit" onClick={()=>handleLogout()}>
+                    <LogoutIcon />
+                </IconButton>
               </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -304,18 +325,18 @@ export default function FrontPage() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'flex-end',
-                  px: [1],
+                  px: [1]
                 }}
               >
                 <IconButton onClick={toggleDrawer}>
                   <ChevronLeftIcon />
                 </IconButton>
               </Toolbar>
-              <Divider />
-              <List component="nav">
+              <Divider/>
+              <List component="nav" >
                 {
                   navList.map(item => (
-                    <Link to={item.to} style={{ textDecoration: 'none', color: 'black', display: item.presence }}>
+                    <Link to={item.to} style={{ textDecoration: 'none', color: 'white', display: item.presence }}>
                       <ListItemButton>
                         <ListItemIcon>
                           {item.icon}
@@ -332,15 +353,15 @@ export default function FrontPage() {
               sx={{
                 backgroundColor: (theme) =>
                   theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[900],
+                    ? theme.palette.primary.soft
+                    : theme.palette.primary.soft[900],
                 flexGrow: 1,
                 height: '100vh',
                 overflow: 'auto',
               }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}>
                 <Grid container spacing={3}>
                   <MainRoute />
                 </Grid>

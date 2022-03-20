@@ -37,11 +37,13 @@ const styleModal = {
   textAlign: 'center',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4
+
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -129,9 +131,9 @@ export default function OutletPage() {
   }
 
   const handleAdd = async () => {
-    setPayload(createPayload(0, "", "", ""))
+    // setPayload(createPayload(0, "", "", ""))
     handleOpen()
-    setAction("add")
+    // setAction("add")
   }
 
   const handleSubmit = async (event) => {
@@ -182,12 +184,14 @@ export default function OutletPage() {
 
   return (
     <>
-      <h1>Outlet</h1>
-      <IconButton aria-label="add" onClick={() => handleAdd()}>
-        <AddCircleIcon sx={{ fontSize: '2rem' }} />
-      </IconButton>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
+          <b>Daftar Outlet Laundry</b>
+        </Typography>
+      </Box>
+      <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
+      <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table" >
           <TableHead>
             <TableRow>
               <StyledTableCell>#</StyledTableCell>
@@ -217,6 +221,18 @@ export default function OutletPage() {
           </TableBody>
         </Table>
       </TableContainer>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
+        <Button
+          variant="contained"
+          elevation={5}
+          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+          onClick={() => handleAdd()}
+          color="secondary"
+        >
+          Tambah Outlet
+        </Button>
+      </Box>
 
 
       {/* modal start */}
@@ -230,7 +246,7 @@ export default function OutletPage() {
         >
           <Box sx={styleModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Update Member
+              <b>MODAL OUTLET</b>
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               {forms.map((form, i) => (
@@ -258,7 +274,8 @@ export default function OutletPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+                color="secondary"
               >
                 Submit
               </Button>

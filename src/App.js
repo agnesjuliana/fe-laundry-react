@@ -3,7 +3,7 @@ import FrontPage from './components/pages/FrontPage';
 
 function App() {
   return(
-    <FrontPage />
+      <FrontPage />
   )
 }
 

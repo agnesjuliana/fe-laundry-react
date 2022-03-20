@@ -44,10 +44,10 @@ const styleModal = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  // border: '2px solid #000',
   textAlign: 'center',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4
 };
 
 const styleModalAdd = {
@@ -57,15 +57,15 @@ const styleModalAdd = {
   transform: 'translate(-50%, -50%)',
   width: '70vw',
   bgcolor: 'background.paper',
-  // border: '2px solid #000',
   textAlign: 'center',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -172,19 +172,6 @@ export default function TransaksiPage() {
     }
 
     handleOpenInfo()
-  }
-
-  const handleDownload = async (item) => {
-    const dataDetail = item.detail
-    let total = 0
-    dataDetail.map((item) => {
-      let price = item.qty * item.paket.harga
-      total += price
-    })
-
-    dataDetail.total = total
-    setDetail(dataDetail)
-
   }
 
   const handleAdd = async () => {
@@ -341,11 +328,13 @@ export default function TransaksiPage() {
 
   return (
     <>
-      <h1>Transaksi</h1>
-      <IconButton aria-label="add" onClick={() => handleAdd()}>
-        <AddCircleIcon sx={{ fontSize: '2rem' }} />
-      </IconButton>
-      <TableContainer component={Paper}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', width: '100%' }}>
+        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
+          <b>Kasir Laundry</b>
+        </Typography>
+      </Box>
+      <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
+      <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
@@ -381,6 +370,18 @@ export default function TransaksiPage() {
           </TableBody>
         </Table>
       </TableContainer>
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
+        <Button
+          variant="contained"
+          elevation={5}
+          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+          onClick={() => handleAdd()}
+          color="secondary"
+        >
+          Tambah Transaksi
+        </Button>
+      </Box>
 
 
 
@@ -467,7 +468,8 @@ export default function TransaksiPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+                color="primary"
               >
                 Submit
               </Button>
@@ -538,15 +540,15 @@ export default function TransaksiPage() {
               </Box>
               <Box sx={{ textAlign: 'left', paddingTop: '1.5rem' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <Button type="submit" variant="contained" sx={{ backgroundColor: 'green' }} onClick={handleOpenStatus}>
-                    Update Status
+                  <Button type="submit" variant="contained" color='success' onClick={handleOpenStatus}>
+                    Status
                   </Button>
                   <Button type="submit" variant="contained" sx={{ display: showButton, ml: '3px' }} onClick={() => handleBayar()}>
                     Bayar
                   </Button>
                   <Pdf targetRef={ref} filename="struk-pembayaran.pdf" x={.5} y={.5} scale={0.8}>
                     {({ toPdf }) =>
-                      <Button variant="contained" sx={{ ml: '3px', backgroundColor: 'yellow' }} onClick={toPdf}>
+                      <Button variant="contained" sx={{ ml: '3px' }} color='secondary' onClick={toPdf}>
                         Download
                       </Button>
                     }

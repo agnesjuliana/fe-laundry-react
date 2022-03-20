@@ -34,11 +34,13 @@ const styleModal = {
   textAlign: 'center',
   boxShadow: 24,
   p: 4,
+  borderRadius: 4
+
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.light,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -154,12 +156,14 @@ export default function PaketPage() {
 
   return (
     <>
-      <h1>Paket</h1>
-      <IconButton aria-label="add" onClick={() => handleAdd()}>
-        <AddCircleIcon sx={{ fontSize: '2rem' }} />
-      </IconButton>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
+        <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
+          <b>Daftar Paket Laundry</b>
+        </Typography>
+      </Box>
+      <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
+      <TableContainer component={Paper} elevation={0} sx={{borderRadius:3}}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table" >
           <TableHead>
             <TableRow>
               <StyledTableCell>#</StyledTableCell>
@@ -189,7 +193,18 @@ export default function PaketPage() {
           </TableBody>
         </Table>
       </TableContainer>
-
+      </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
+        <Button
+          variant="contained"
+          elevation={5}
+          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+          onClick={() => handleAdd()}
+          color="secondary"
+        >
+          Tambah Paket
+        </Button>
+      </Box>
 
       {/* modal start */}
       <div>
@@ -202,7 +217,7 @@ export default function PaketPage() {
         >
           <Box sx={styleModal}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Update Paket
+              <b>MODAL PAKET</b>
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               {forms.map((form, i) => (
@@ -225,7 +240,8 @@ export default function PaketPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+                color="secondary"
               >
                 Submit
               </Button>
