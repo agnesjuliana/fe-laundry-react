@@ -339,7 +339,7 @@ export default function FrontPage() {
                   noWrap
                   sx={{ flexGrow: 1 }}
                 >
-                  <b>Cling Laundry</b>
+                  <b>Blu Laundry</b>
                 </Typography>
                 <IconButton color="inherit" onClick={() => handleLogout()}>
                   <LogoutIcon />
