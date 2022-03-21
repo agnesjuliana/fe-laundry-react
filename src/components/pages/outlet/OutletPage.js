@@ -70,61 +70,25 @@ const createPayload = (id_outlet, id_user, alamat, user) => {
 
 export default function OutletPage() {
   React.useEffect(() => {
-    // const User = getRole()
-    // if (User !== 'admin') {
-    //   window.location = '/denied'
-    // }
+    const User = getRole()
+    if (User !== 'admin') {
+      window.location = '/denied'
+    }
 
-    // const fetchData = async () => {
-    //   const result = await outlet.show()
-    //   setRows(result)
-    // }
+    const fetchData = async () => {
+      const result = await outlet.show()
+      setRows(result)
+    }
 
-    // const fetchOwner = async () => {
-    //   const rawUsers = await user.showOwners()
-    //   setOwners(rawUsers)
-    // }
+    const fetchOwner = async () => {
+      const rawUsers = await user.showOwners()
+      setOwners(rawUsers)
+    }
 
-    // fetchData()
-    // fetchOwner()
-    // setPayload(createPayload(0, "", "", ""))
-    setRows([
-      {
-        id_outlet: 1,
-        user: {
-          nama_user: "Siti Jaenab",
-        },
-        alamat: "Jatinegara",
-      },
-      {
-        id_outlet: 1,
-        user: {
-          nama_user: "Siti Jaenab",
-        },
-        alamat: "Jatinegara",
-      },
-      {
-        id_outlet: 1,
-        user: {
-          nama_user: "Siti Jaenab",
-        },
-        alamat: "Jatinegara",
-      },
-      {
-        id_outlet: 1,
-        user: {
-          nama_user: "Siti Jaenab",
-        },
-        alamat: "Jatinegara",
-      },
-      {
-        id_outlet: 1,
-        user: {
-          nama_user: "Siti Jaenab",
-        },
-        alamat: "Jatinegara",
-      },
-    ]);
+    fetchData()
+    fetchOwner()
+    setPayload(createPayload(0, "", "", ""))
+
   }, []);
 
   const [rows, setRows] = React.useState([]);

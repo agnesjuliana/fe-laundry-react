@@ -21,6 +21,7 @@ const show = async () => {
     }
   } catch (error) {
     console.log(error)
+    return null
   }
 }
 
@@ -63,6 +64,22 @@ const destroy = async (payload) => {
   }
 }
 
+const count = async () => {
+  let url = base_url
+  try {
+    let result = await axios.get(url, headerConfig())
+    if (result.status === 200) {
+      let paket = result.data.data
+      let count = paket.length()
+      console.log(result.data.data)
+      return count
+    }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
 
-export default {show, update, destroy, add}
+
+export default {show, update, destroy, add, count}
 

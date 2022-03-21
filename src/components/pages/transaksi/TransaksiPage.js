@@ -93,85 +93,31 @@ const createPayload = (id_transaksi, id_user, id_member, id_outlet) => {
 
 export default function TransaksiPage() {
   React.useEffect(() => {
-    // const User = getRole();
-    // if (User !== "admin" && User !== "kasir") {
-    //   window.location = "/denied";
-    // }
+    const User = getRole();
+    if (User !== "admin" && User !== "kasir") {
+      window.location = "/denied";
+    }
 
-    // const fetchData = async () => {
-    //   const result = await transaksi.show();
-    //   setRows(result);
+    const fetchData = async () => {
+      const result = await transaksi.show();
+      setRows(result);
 
-    //   const rawUsers = await user.showKasirAdmin();
-    //   setStaffs(rawUsers);
+      const rawUsers = await user.showKasirAdmin();
+      setStaffs(rawUsers);
 
-    //   const rawMembers = await member.show();
-    //   setMembers(rawMembers);
+      const rawMembers = await member.show();
+      setMembers(rawMembers);
 
-    //   const rawPakets = await paket.show();
-    //   setPakets(rawPakets);
+      const rawPakets = await paket.show();
+      setPakets(rawPakets);
 
-    //   const rawOutlets = await outlet.show();
-    //   setOutlets(rawOutlets);
-    // };
+      const rawOutlets = await outlet.show();
+      setOutlets(rawOutlets);
+    };
 
-    // fetchData();
-    // setPayload(createPayload(0, 0, 0, 0, []));
+    fetchData();
+    setPayload(createPayload(0, 0, 0, 0, []));
 
-    setRows([
-      {
-        id_transaksi: 1,
-        user: {
-          nama_user: "Jaenal Abidin",
-        },
-        member: {
-          nama_member: "Bangun Pambebaran",
-        },
-        tgl_diterima: "10-11-2022",
-        batas_waktu: "18-12-2022 12:21:91:01",
-        status: "Single",
-        dibayar: "Complete",
-      },
-      {
-        id_transaksi: 1,
-        user: {
-          nama_user: "Jaenal Abidin",
-        },
-        member: {
-          nama_member: "Bangun Pambebaran",
-        },
-        tgl_diterima: "10-11-2022",
-        batas_waktu: "18-12-2022 12:21:91:01",
-        status: "Single",
-        dibayar: "Complete",
-      },
-      {
-        id_transaksi: 1,
-        user: {
-          nama_user: "Jaenal Abidin",
-        },
-        member: {
-          nama_member: "Bangun Pambebaran",
-        },
-        tgl_diterima: "10-11-2022",
-        batas_waktu: "18-12-2022 12:21:91:01",
-        status: "Single",
-        dibayar: "Complete",
-      },
-      {
-        id_transaksi: 1,
-        user: {
-          nama_user: "Jaenal Abidin",
-        },
-        member: {
-          nama_member: "Bangun Pambebaran",
-        },
-        tgl_diterima: "10-11-2022",
-        batas_waktu: "18-12-2022 12:21:91:01",
-        status: "Single",
-        dibayar: "Complete",
-      },
-    ]);
   }, []);
 
   const [rows, setRows] = React.useState([]);

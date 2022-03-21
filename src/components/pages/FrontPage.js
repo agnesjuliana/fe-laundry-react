@@ -28,7 +28,7 @@ import OutletIcon from "@mui/icons-material/LocalConvenienceStoreRounded";
 import PaketIcon from "@mui/icons-material/Inventory2Rounded";
 import UserIcon from "@mui/icons-material/GroupRounded";
 import TransaksiIcon from "@mui/icons-material/ReceiptLongRounded";
-import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -110,7 +110,8 @@ const mdTheme = createTheme({
 
 const useStyles = makeStyles({
   leftContainer: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    // backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage: "url(https://images.unsplash.com/photo-1647295753282-166d8d88c946?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY0NzgyMDg1MA&ixlib=rb-1.2.1&q=80&w=1080)",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -131,8 +132,8 @@ export default function FrontPage() {
     }
   }, []);
 
-  const [navPresence, setNavPresence] = React.useState("block");
-  const [loginPresence, setLoginPresence] = React.useState("none");
+  const [navPresence, setNavPresence] = React.useState("none");
+  const [loginPresence, setLoginPresence] = React.useState("block");
   const [navlistPresence, setnavlistPresence] = React.useState({
     dashboard: "block",
     member: "block",
@@ -227,6 +228,12 @@ export default function FrontPage() {
       console.log(error);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("role")
+    localStorage.removeItem("token")
+    window.location = '/'
+  }
 
   return (
     <>
@@ -431,7 +438,7 @@ export default function FrontPage() {
                   My Laundry
                 </Typography>
                 <IconButton color="inherit">
-                  <PersonOutlineRoundedIcon sx={{ color: "#A27741" }} />
+                  <LogoutIcon sx={{ color: "#A27741" }} onClick={() => handleLogout()}/>
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -490,10 +497,6 @@ export default function FrontPage() {
             <Box
               component="main"
               sx={{
-                // backgroundColor: (theme) =>
-                //   theme.palette.mode === "light"
-                //     ? theme.palette.grey[100]
-                //     : theme.palette.grey[900],
                 backgroundColor: "#FAFAFA",
                 flexGrow: 1,
                 height: "100vh",

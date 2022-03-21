@@ -66,48 +66,18 @@ const createPayload = (id_user, nama_user, username, password, role) => {
 
 export default function UserPage() {
   React.useEffect(() => {
-    // const User = getRole()
-    // if (User !== 'admin') {
-    //   window.location = '/denied'
-    // }
+    const User = getRole()
+    if (User !== 'admin') {
+      window.location = '/denied'
+    }
 
-    // const fetch = async () => {
-    //   const result = await user.show()
-    //   setRows(result)
-    // }
+    const fetch = async () => {
+      const result = await user.show()
+      setRows(result)
+    }
 
-    // fetch()
-    // setPayload(createPayload(0, "", "", "", ""))
-    setRows([
-      {
-        id_user: 1,
-        nama_user: "Junaidi Anwar",
-        username: "Juuuuned",
-        password: "rahasia",
-        role: "Admin",
-      },
-      {
-        id_user: 1,
-        nama_user: "Junaidi Anwar",
-        username: "Juuuuned",
-        password: "rahasia",
-        role: "Admin",
-      },
-      {
-        id_user: 1,
-        nama_user: "Junaidi Anwar",
-        username: "Juuuuned",
-        password: "rahasia",
-        role: "Admin",
-      },
-      {
-        id_user: 1,
-        nama_user: "Junaidi Anwar",
-        username: "Juuuuned",
-        password: "rahasia",
-        role: "Admin",
-      },
-    ]);
+    fetch()
+    setPayload(createPayload(0, "", "", "", ""))
   }, []);
 
   const [rows, setRows] = React.useState([]);

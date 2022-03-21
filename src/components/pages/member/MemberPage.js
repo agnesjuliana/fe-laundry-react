@@ -66,49 +66,19 @@ const createPayload = (id_member, nama_member, alamat, jenis_kelamin, telp) => {
 
 export default function MemberPage() {
   React.useEffect(() => {
-    // const User = getRole();
-    // if (User !== "admin" && User !== "kasir") {
-    //   window.location = "/denied";
-    // }
+    const User = getRole();
+    if (User !== "admin" && User !== "kasir") {
+      window.location = "/denied";
+    }
 
-    // const fetch = async () => {
-    //   const result = await member.show();
-    //   setRows(result);
-    // };
+    const fetch = async () => {
+      const result = await member.show();
+      setRows(result);
+    };
 
-    // fetch();
-    // setPayload(createPayload(0, "", "", "", ""));
+    fetch();
+    setPayload(createPayload(0, "", "", "", ""));
 
-    setRows([
-      {
-        id_member: 0,
-        nama_member: "Satrio",
-        alamat: "Tuban",
-        jenis_kelamin: "Laki-Laki",
-        telp: "088126371234",
-      },
-      {
-        id_member: 0,
-        nama_member: "Satrio",
-        alamat: "Tuban",
-        jenis_kelamin: "Laki-Laki",
-        telp: "088126371234",
-      },
-      {
-        id_member: 0,
-        nama_member: "Satrio",
-        alamat: "Tuban",
-        jenis_kelamin: "Laki-Laki",
-        telp: "088126371234",
-      },
-      {
-        id_member: 0,
-        nama_member: "Satrio",
-        alamat: "Tuban",
-        jenis_kelamin: "Laki-Laki",
-        telp: "088126371234",
-      },
-    ]);
   }, []);
 
   const [rows, setRows] = React.useState([]);

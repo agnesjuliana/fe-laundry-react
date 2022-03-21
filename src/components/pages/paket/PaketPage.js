@@ -65,41 +65,19 @@ const createPayload = (id_paket, jenis, harga) => {
 
 export default function PaketPage() {
   React.useEffect(() => {
-    // const User = getRole();
-    // if (User !== "admin") {
-    //   window.location = "/denied";
-    // }
+    const User = getRole();
+    if (User !== "admin") {
+      window.location = "/denied";
+    }
 
-    // const fetch = async () => {
-    //   const result = await paket.show();
-    //   setRows(result);
-    // };
+    const fetch = async () => {
+      const result = await paket.show();
+      setRows(result);
+    };
 
-    // fetch();
-    // setPayload(createPayload(0, "", 0));
+    fetch();
+    setPayload(createPayload(0, "", 0));
 
-    setRows([
-      {
-        id_paket: 1,
-        jenis: "Jumbo",
-        harga: 12999,
-      },
-      {
-        id_paket: 1,
-        jenis: "Minimalist",
-        harga: 12999,
-      },
-      {
-        id_paket: 1,
-        jenis: "Hemat",
-        harga: 12999,
-      },
-      {
-        id_paket: 1,
-        jenis: "Larang",
-        harga: 12999,
-      },
-    ]);
   }, []);
 
   const [rows, setRows] = React.useState([]);
