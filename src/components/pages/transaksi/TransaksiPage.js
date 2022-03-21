@@ -332,61 +332,76 @@ export default function TransaksiPage() {
       }}>
         <Box component={Paper} elevation={0} sx={{
           display: 'flex', flexDirection: 'row',
-          justifyContent: 'space-between', width: '100%', borderRadius: 1.5, padding: 2, backgroundColor: '#fffde7', border: 'solid #ffd967 1px'
+          justifyContent: 'center', width: '100%', borderRadius: 1.5, padding: 2, backgroundColor: '#fffde7', border: 'solid #ffd967 1px'
         }}>
           <Typography noWrap sx={{ textAlign: 'center', color: '#ffa735' }} variant='h5' component='h5'>
-            <b>Transaksi</b>
+            <b>KASIR LAUNDRY</b>
           </Typography>
-          <Button
-            elevation={5}
-            sx={{ borderRadius: 2 }}
-            onClick={() => handleAdd()}
-            color="secondary"
-            variant="contained" startIcon={<AddBoxIcon />}
-          >
-            Tambah Transaksi
-          </Button>
         </Box>
       </Box>
       <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
-      <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell>Nama Petugas</StyledTableCell>
-              <StyledTableCell>Nama Member</StyledTableCell>
-              <StyledTableCell>Tgl Diterima</StyledTableCell>
-              <StyledTableCell>Batas Waktu</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Dibayar</StyledTableCell>
-              <StyledTableCell>Action</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, i) => (
-              <StyledTableRow key={row.id_transaksi}>
-                <StyledTableCell>{i + 1}</StyledTableCell>
-                <StyledTableCell>{row.id_transaksi}</StyledTableCell>
-                <StyledTableCell>{row.user.nama_user}</StyledTableCell>
-                <StyledTableCell>{row.member.nama_member}</StyledTableCell>
-                <StyledTableCell>{row.tgl_diterima}</StyledTableCell>
-                <StyledTableCell>{row.batas_waktu}</StyledTableCell>
-                <StyledTableCell>{row.status}</StyledTableCell>
-                <StyledTableCell>{row.dibayar}</StyledTableCell>
-                <StyledTableCell>
-                  <IconButton aria-label="edit" onClick={() => handleInfo(row)}>
-                    <EditIcon />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+        <TableContainer component={Paper} elevation={0}
+          sx={{
+            maxHeight: "54vh",
+            "&::-webkit-scrollbar": { width: "4px" },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "#f5f5f5",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "#C1C1C1",
+            },
+            borderRadius: 3,
+          }}
+        >
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>#</StyledTableCell>
+                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>Nama Petugas</StyledTableCell>
+                <StyledTableCell>Nama Member</StyledTableCell>
+                <StyledTableCell>Tgl Diterima</StyledTableCell>
+                <StyledTableCell>Batas Waktu</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Dibayar</StyledTableCell>
+                <StyledTableCell>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, i) => (
+                <StyledTableRow key={row.id_transaksi}>
+                  <StyledTableCell>{i + 1}</StyledTableCell>
+                  <StyledTableCell>{row.id_transaksi}</StyledTableCell>
+                  <StyledTableCell>{row.user.nama_user}</StyledTableCell>
+                  <StyledTableCell>{row.member.nama_member}</StyledTableCell>
+                  <StyledTableCell>{row.tgl_diterima}</StyledTableCell>
+                  <StyledTableCell>{row.batas_waktu}</StyledTableCell>
+                  <StyledTableCell>{row.status}</StyledTableCell>
+                  <StyledTableCell>{row.dibayar}</StyledTableCell>
+                  <StyledTableCell>
+                    <IconButton aria-label="edit" onClick={() => handleInfo(row)}>
+                      <EditIcon />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
-
+      <Box elevation={5} sx={{
+        borderRadius: 3, width: '100%', display: 'flex', justifyContent: 'end', flexDirection: 'row',
+        width: '100%',my: 2 }}>
+        <Button
+          elevation={5}
+          sx={{ borderRadius: 4, width: 15, height: 40 }}
+          onClick={() => handleAdd()}
+          color="secondary"
+          variant="contained"
+        >
+          <AddBoxIcon sx={{ fontSize: 30}}/>
+        </Button>
+      </Box>
 
 
       <div>

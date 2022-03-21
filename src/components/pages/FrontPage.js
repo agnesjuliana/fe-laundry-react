@@ -46,7 +46,7 @@ const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.main,
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -65,7 +65,6 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
-      backgroundColor: theme.palette.primary.main,
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -92,17 +91,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const useStyles = makeStyles({
   leftContainer: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
+    // backgroundImage: 'url(https://source.unsplash.com/random)',
     // background: 'linear-gradient(to right, #00bbd3, #ffd967)',
-    // backgroundColor: '#fffde7',
+    backgroundColor: '#6ec5ff',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
   rightContainer: {
     // backgroundImage: 'url(https://source.unsplash.com/random)',
-    // background: 'linear-gradient(to right, #00bbd3 80%, )',
-    backgroundColor: '#ffd967',
+    // background: 'linear-gradient(to right, #00bbd3, #ffd967)',
+    // backgroundColor: '#ffe082',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -138,12 +137,12 @@ export default function FrontPage() {
   });
 
   const navList = [
-    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{ color: 'white' }} />, navlistPresence.dashboard),
-    createNavList('User', '/user', <UserIcon sx={{ color: 'white' }} />, navlistPresence.user),
-    createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'white' }} />, navlistPresence.paket),
-    createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'white' }} />, navlistPresence.outlet),
-    createNavList('Member', '/member', <MemberIcon sx={{ color: 'white' }} />, navlistPresence.member),
-    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.transaksi),
+    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{ color: 'primary.main' }} />, navlistPresence.dashboard),
+    createNavList('User', '/user', <UserIcon sx={{ color: 'primary.main' }} />, navlistPresence.user),
+    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{ color: 'primary.main' }} />, navlistPresence.transaksi),
+    createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'primary.main' }} />, navlistPresence.paket),
+    createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'primary.main' }} />, navlistPresence.outlet),
+    createNavList('Member', '/member', <MemberIcon sx={{ color: 'primary.main' }} />, navlistPresence.member),
   ]
 
 
@@ -240,7 +239,7 @@ export default function FrontPage() {
                   alignItems: 'center',
                 }}
               >
-                <Box component={Paper} elevation={5}
+                <Box elevation={5}
                   sx={{
                     padding: 4,
                     display: 'flex',
@@ -248,13 +247,14 @@ export default function FrontPage() {
                     alignItems: 'center',
                     width: '25vw',
                     borderRadius: 3,
+                    color: "white"
                   }}
                 >
 
                   <Typography component="h1" variant="h5" >
-                    Login
+                    LOGIN USER
                   </Typography>
-                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, border: 'solid white 2px', padding: 3 }}>
                     <TextField
                       margin="normal"
                       required
@@ -262,6 +262,7 @@ export default function FrontPage() {
                       id="username"
                       label="Username"
                       name="username"
+                      size='small'
                       autoComplete="username"
                       autoFocus
                     />
@@ -273,23 +274,25 @@ export default function FrontPage() {
                       label="Password"
                       type="password"
                       id="password"
+                      size='small'
                       autoComplete="current-password"
-                      sx={{ borderRadius: 3 }}
+                      sx={{ borderRadius: 3, color: "white" }}
                     />
                     <Button
                       type="submit"
-                      fullWidth
+                      // fullWidth
                       variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
+                      color="secondary"
+                      sx={{ mt: 3, mb: 2, left: '35%', minWidth: '30%' }}
                     >
-                      Sign In
+                      Sign in
                     </Button>
                   </Box>
                 </Box>
               </Box>
             </Grid>
 
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ backgroundColor: "#ffd967" }}>
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.rightContainer} sx={{ backgroundColor: '#ffe082'}}>
               <Box
                 sx={{
                   paddingTop: '40%',
@@ -299,12 +302,14 @@ export default function FrontPage() {
                   width: '100%'
                 }}
               >
-                <Typography noWrap sx={{ textAlign: 'center' }} variant='h2' component='h5'>
-                  <b>Welcome</b>
-                </Typography>
-                <Typography noWrap sx={{ textAlign: 'center' }} variant='h3' component='h5'>
-                  <b>Laundry Family</b>
-                </Typography>
+                <Box component={Paper} sx={{padding:4}}>
+                  <Typography noWrap sx={{ textAlign: 'center' }} variant='h2' component='h5'>
+                    <b>Welcome</b>
+                  </Typography>
+                  <Typography noWrap sx={{ textAlign: 'center' }} variant='h3' component='h5'>
+                    Laundry Blu
+                  </Typography>
+                </Box>
               </Box>
             </Grid>
           </Grid>
@@ -363,12 +368,12 @@ export default function FrontPage() {
               <List component="nav" >
                 {
                   navList.map(item => (
-                    <Link to={item.to} style={{ textDecoration: 'none', color: 'white', display: item.presence }}>
+                    <Link to={item.to} style={{ textDecoration: 'none', display: item.presence }}>
                       <ListItemButton>
                         <ListItemIcon>
                           {item.icon}
                         </ListItemIcon>
-                        <ListItemText primary={item.name} />
+                        <ListItemText primary={item.name} sx={{ color: "primary.main" }} />
                       </ListItemButton>
                     </Link>
                   ))
