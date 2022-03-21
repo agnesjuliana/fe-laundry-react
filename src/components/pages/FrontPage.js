@@ -88,25 +88,35 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
+const InputStyle = styled("input")(({ theme }) => ({
+  marginTop: 6,
+  border: "none",
+  borderRadius: 6,
+  paddingLeft: 16,
+  paddingRight: 16,
+  fontFamily: "Poppins",
+  fontSize: 14,
+  fontWeight: 300,
+  width: "100%",
+  letterSpacing: 0.3,
+  height: 40,
+  backgroundColor: "#e3f2fd",
+  "&:focus": {
+    border: "none",
+    outline: "none",
+  },
+}));
+
 
 const useStyles = makeStyles({
   leftContainer: {
-    // backgroundImage: 'url(https://source.unsplash.com/random)',
-    // background: 'linear-gradient(to right, #00bbd3, #ffd967)',
-    backgroundColor: '#6ec5ff',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    // backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage: "url(https://images.unsplash.com/photo-1561053720-76cd73ff22c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
-  rightContainer: {
-    // backgroundImage: 'url(https://source.unsplash.com/random)',
-    // background: 'linear-gradient(to right, #00bbd3, #ffd967)',
-    // backgroundColor: '#ffe082',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  }
-})
+});
 
 
 
@@ -222,96 +232,138 @@ export default function FrontPage() {
     <>
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: loginPresence }}>
-          <Grid container component="main" sx={{ height: '100vh' }}>
+          <Grid container component="main" sx={{ height: "100vh" }}>
             <CssBaseline />
+            <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={6}
+              square
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "none",
+                backgroundColor: "#6ec5ff",
+              }}
+            >
+              <Box
+                sx={{
+                  my: 8,
+                  mx: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  component="h1"
+                  sx={{ width: 400, fontWeight: 700, fontSize: 30 }}
+                >
+                  Sign in to BluLaundry
+                </Typography>
+                <Typography
+                  component="h1"
+                  sx={{
+                    width: 400,
+                    fontWeight: 500,
+                    fontSize: 14,
+                    color: "#0068bf",
+                  }}
+                >
+                  Welcome back! Sign in with your data that you entered during
+                  registrations
+                </Typography>
+                <Box
+                  component="form"
+                  noValidate
+                  onSubmit={handleSubmit}
+                  sx={{ mt: 3 }}
+                >
+                  <div style={{ width: 400, marginTop: 16 }}>
+                    <Typography
+                      sx={{ fontWeight: 600, fontSize: 12, ml: 1, mr: 1 }}
+                    >
+                      Username
+                    </Typography>
+                    <InputStyle
+                      required
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoComplete="username"
+                      placeholder="username"
+                      autoFocus
+                      type={"text"}
+                    />
+                  </div>
+
+                  <div style={{ width: 400, marginTop: 16 }}>
+                    <Typography
+                      sx={{ fontWeight: 600, fontSize: 12, ml: 1, mr: 1 }}
+                    >
+                      Password
+                    </Typography>
+                    <InputStyle
+                      required
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      placeholder="password"
+                    />
+                  </div>
+                  
+                  <Grid
+                    container
+                    justifyContent={"space-between"}
+                    sx={{ mt: 1 }}
+                  >
+                    <div></div>
+                    <Typography sx={{ fontSize: 13 }}>
+                      Forget Your Password?
+                    </Typography>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      // backgroundColor: "#FF8B01",
+                      letterSpacing: 0.7,
+
+                      pt: 1,
+                      pb: 1,
+                      boxShadow: "0px 12px 20px #FF8B0126",
+                      borderRadius: 2,
+                      "&:hover": {
+                        // backgroundColor: "#EA7F00",
+                        boxShadow: "none",
+                      },
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                  <Typography align="center" sx={{ mt: 2 }}>
+                    Don't have an Account? Contact admin!
+                  </Typography>
+                </Box>
+              </Box>
+            </Grid>
+
             <Grid
               item
               xs={false}
               sm={4}
               md={7}
               className={classes.leftContainer}
-            >
-              <Box
-                sx={{
-                  marginTop: 20,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                }}
-              >
-                <Box elevation={5}
-                  sx={{
-                    padding: 4,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    width: '25vw',
-                    borderRadius: 3,
-                    color: "white"
-                  }}
-                >
-
-                  <Typography component="h1" variant="h5" >
-                    LOGIN USER
-                  </Typography>
-                  <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, border: 'solid white 2px', padding: 3 }}>
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="username"
-                      label="Username"
-                      name="username"
-                      size='small'
-                      autoComplete="username"
-                      autoFocus
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      size='small'
-                      autoComplete="current-password"
-                      sx={{ borderRadius: 3, color: "white" }}
-                    />
-                    <Button
-                      type="submit"
-                      // fullWidth
-                      variant="contained"
-                      color="secondary"
-                      sx={{ mt: 3, mb: 2, left: '35%', minWidth: '30%' }}
-                    >
-                      Sign in
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.rightContainer} sx={{ backgroundColor: '#ffe082'}}>
-              <Box
-                sx={{
-                  paddingTop: '40%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  width: '100%'
-                }}
-              >
-                <Box component={Paper} sx={{padding:4}}>
-                  <Typography noWrap sx={{ textAlign: 'center' }} variant='h2' component='h5'>
-                    <b>Welcome</b>
-                  </Typography>
-                  <Typography noWrap sx={{ textAlign: 'center' }} variant='h3' component='h5'>
-                    Laundry Blu
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
+            ></Grid>
           </Grid>
         </Box>
 
