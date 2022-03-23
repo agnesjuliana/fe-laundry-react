@@ -87,7 +87,7 @@ export default function MemberPage() {
   const [rows, setRows] = React.useState([])
   const [open, setOpen] = React.useState(false);
   const [payload, setPayload] = React.useState({});
-  let action = ""
+  const [action, setAction] = React.useState("");
 
 
 
@@ -112,13 +112,13 @@ export default function MemberPage() {
   const handleUpdate = async (item) => {
     handleOpen()
     setPayload(item)
-    action = "update"
+    setAction("update")
   }
 
   const handleAdd = async () => {
     handleOpen()
-    action = "add"
-    console.log(action)
+    setPayload({})
+    setAction("add")
   }
 
   const handleSubmit = async (event) => {
@@ -272,7 +272,7 @@ export default function MemberPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2, borderRadius: 4 }}
                 color="secondary"
               >
                 Submit

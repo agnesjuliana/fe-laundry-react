@@ -63,6 +63,19 @@ const destroy = async (payload) => {
   }
 }
 
+const count = async () => {
+  try {
+    let result = await show()
+    if (result !== null) {
+      let count = result.length
+      return count
+    }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
 
-export default {show, update, destroy, add}
+
+export default {show, update, destroy, add, count}
 

@@ -87,19 +87,18 @@ const add = async (payload) => {
   }
 }
 
-// const destroy = async (payload) => {
-//   let url = base_url + '/' + payload.id_transaksi
-//   try {
-//     let result = await axios.delete(url, headerConfig())
-//     if (result.status === 200) {
-//       return { success: true }
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     return { success: false }
-//   }
-// }
+const count = async () => {
+  try {
+    let result = await show()
+    if (result !== null) {
+      let count = result.length
+      return count
+    }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
 
-
-export default {show, add, showOne, bayar, updateStatus}
+export default {show, add, showOne, bayar, updateStatus, count}
 

@@ -34,7 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { MainRoute } from './main/MainRoute';
+import { MainRoute } from '../../main/MainRoute';
 import getRole from '../../utils/access'
 import mdTheme from '../../utils/Style'
 
@@ -143,7 +143,8 @@ export default function FrontPage() {
     outlet: 'block',
     paket: 'block',
     user: 'block',
-    transaksi: 'block'
+    transaksi: 'block',
+    laporan: 'block'
   });
 
   const navList = [
@@ -153,6 +154,7 @@ export default function FrontPage() {
     createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'primary.main' }} />, navlistPresence.paket),
     createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'primary.main' }} />, navlistPresence.outlet),
     createNavList('Member', '/member', <MemberIcon sx={{ color: 'primary.main' }} />, navlistPresence.member),
+    createNavList('Laporan', '/generate/laporan', <TransaksiIcon sx={{ color: 'primary.main' }} />, navlistPresence.laporan),
   ]
 
 

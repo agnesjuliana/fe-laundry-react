@@ -487,8 +487,8 @@ export default function TransaksiPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
-                color="primary"
+                sx={{ mt: 3, mb: 2, borderRadius: 4 }}
+                color="secondary"
               >
                 Submit
               </Button>
