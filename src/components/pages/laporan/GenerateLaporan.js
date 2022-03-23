@@ -43,6 +43,20 @@ const styleModal = {
   p: 4,
 };
 
+const styleModalAdd = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "70vw",
+  bgcolor: "background.paper",
+  // border: '2px solid #000',
+  textAlign: "center",
+  boxShadow: "none",
+  p: 4,
+  borderRadius: "8px",
+};
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.main,
@@ -184,7 +198,7 @@ export default function GenerateLaporan() {
 
 
           <Box sx={{ display: 'flex', width: "100%", justifyContent: "flex-end" }}>
-            <Pdf targetRef={ref} filename="laporan-pembayaran.pdf" x={.5} y={.5} scale={0.8}>
+            <Pdf targetRef={ref} filename="struk-pembayaran.pdf" x={.5} y={.5} scale={0.8}>
               {({ toPdf }) =>
                 <Button variant="contained"
                   color='secondary' onClick={toPdf}>
