@@ -65,13 +65,10 @@ const destroy = async (payload) => {
 }
 
 const count = async () => {
-  let url = base_url
   try {
-    let result = await axios.get(url, headerConfig())
-    if (result.status === 200) {
-      let paket = result.data.data
-      let count = paket.length()
-      console.log(result.data.data)
+    let result = await show()
+    if (result !== null) {
+      let count = result.length
       return count
     }
   } catch (error) {

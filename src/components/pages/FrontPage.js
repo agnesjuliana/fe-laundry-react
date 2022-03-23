@@ -32,7 +32,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { MainRoute } from "./main/MainRoute";
+import { MainRoute } from "../../main/MainRoute";
 import getRole from "../../utils/access";
 
 const base_url = "http://localhost:8000/api";
@@ -141,6 +141,7 @@ export default function FrontPage() {
     paket: "block",
     user: "block",
     transaksi: "block",
+    laporan: "block"
   });
 
   const navList = [
@@ -160,6 +161,12 @@ export default function FrontPage() {
       <TransaksiIcon />,
       navlistPresence.transaksi
     ),
+    createNavList(
+      "Laporan",
+      "/generate/laporan",
+      <TransaksiIcon />,
+      navlistPresence.laporan
+    ),
   ];
 
   const [open, setOpen] = React.useState(true);
@@ -175,12 +182,14 @@ export default function FrontPage() {
       paket: "block",
       user: "block",
       transaksi: "block",
+      laporan: "block"
     };
 
     if (user === "kasir") {
       newList.outlet = "none";
       newList.paket = "none";
       newList.user = "none";
+      newList.laporan = "none"
     }
 
     if (user === "owner") {
@@ -323,32 +332,6 @@ export default function FrontPage() {
                       placeholder="password"
                     />
                   </div>
-                  {/* <CssTextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                    sx={{
-                      backgroundColor: "#eaeef2",
-                      borderRadius: 2,
-                    }}
-                  />
-
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  /> */}
-
                   <Grid
                     container
                     justifyContent={"space-between"}

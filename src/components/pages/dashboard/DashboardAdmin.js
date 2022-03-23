@@ -1,6 +1,8 @@
 import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
-export const homeAdmin = (
+
+export default function homeAdmin({count}) {
+  return(
   <Grid container sx={{ m: 5 }}>
     <Typography sx={{ fontSize: 26, fontWeight: 500 }}>
       Wellcome Back Admin
@@ -25,7 +27,7 @@ export const homeAdmin = (
             margin: "4px 0px",
           }}
         >
-          138
+          {count.member}
         </Typography>
         <Typography sx={{ color: "#ffff", fontSize: 14, fontWeight: 300 }}>
           total data of all members
@@ -48,7 +50,7 @@ export const homeAdmin = (
             margin: "4px 0px",
           }}
         >
-          25
+          {count.outlet}
         </Typography>
         <Typography sx={{ color: "#ffff", fontSize: 14, fontWeight: 300 }}>
           total data of all outlet
@@ -71,7 +73,7 @@ export const homeAdmin = (
             margin: "4px 0px",
           }}
         >
-          82
+          {count.paket}
         </Typography>
         <Typography sx={{ color: "#ffff", fontSize: 14, fontWeight: 300 }}>
           total data of all paket
@@ -85,7 +87,7 @@ export const homeAdmin = (
       />
 
       <div>
-        <Typography sx={{ color: "#ffff", fontWeight: 300 }}>User</Typography>
+        <Typography sx={{ color: "#ffff", fontWeight: 300 }}>Transaction</Typography>
         <Typography
           sx={{
             color: "#ffff",
@@ -94,12 +96,12 @@ export const homeAdmin = (
             margin: "4px 0px",
           }}
         >
-          626
+          {count.transaksi}
         </Typography>
         <Typography sx={{ color: "#ffff", fontSize: 14, fontWeight: 300 }}>
-          total data of all user
+          total data of all transaction
         </Typography>
       </div>
     </Grid>
   </Grid>
-);
+);}
