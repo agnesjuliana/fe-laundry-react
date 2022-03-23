@@ -10,17 +10,9 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import transaksi from "../transaksi/TransaksiAPI";
-import user from "../user/UserAPI";
-import member from "../member/MemberAPI";
-import paket from "../paket/PaketAPI";
-import outlet from "../outlet/OutletAPI";
-import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
-import { MenuItem, Grid } from "@mui/material";
+import {Grid } from "@mui/material";
 import getRole from "../../../utils/access";
 
 // icon
@@ -85,14 +77,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-const createForm = (label, id, disabled, required, select, value, nested) => {
-  return { label, id, disabled, required, select, value, nested };
-};
-
-const createPayload = (id_transaksi, id_user, id_member, id_outlet) => {
-  return { id_transaksi, id_user, id_member, id_outlet };
-};
 
 export default function GenerateLaporan() {
   React.useEffect(() => {
