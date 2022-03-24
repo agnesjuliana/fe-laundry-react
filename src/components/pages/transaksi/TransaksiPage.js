@@ -85,6 +85,7 @@ const createForm = (label, id, disabled, required, select, value, nested) => {
   return { label, id, disabled, required, select, value, nested }
 }
 
+
 const createPayload = (id_transaksi, id_user, id_member, id_outlet) => {
   return { id_transaksi, id_user, id_member, id_outlet }
 }
@@ -101,9 +102,6 @@ export default function TransaksiPage() {
     const fetchData = async () => {
       const result = await transaksi.show()
       setRows(result)
-
-      const rawUsers = await user.showKasirAdmin()
-      setStaffs(rawUsers)
 
       const rawMembers = await member.show()
       setMembers(rawMembers)
@@ -127,7 +125,6 @@ export default function TransaksiPage() {
   const [payload, setPayload] = React.useState({});
   const [bill, setBill] = React.useState({});
   const [detail, setDetail] = React.useState([]);
-  const [staffs, setStaffs] = React.useState([]);
   const [members, setMembers] = React.useState([]);
   const [pakets, setPakets] = React.useState([]);
   const [outlets, setOutlets] = React.useState([]);
@@ -173,7 +170,8 @@ export default function TransaksiPage() {
   }
 
   const handleAdd = async () => {
-    setPayload(createPayload(0, staffs[0].id_user, members[0].id_member, outlets[0].id_outlet, []))
+    const userId = localStorage.getItem("userId")
+    setPayload(createPayload(0, userId, members[0].id_member, outlets[0].id_outlet, []))
     setLists([
       { id_paket: pakets[0].id_paket, qty: 0 },
       { id_paket: pakets[0].id_paket, qty: 0 },
@@ -260,18 +258,7 @@ export default function TransaksiPage() {
 
   const formsAddTransaksi = [
     createForm("ID Transaksi", "id_transaksi", true, false, false, payload.id_transaksi),
-    createForm("Nama Petugas", "id_user", false, true, true, payload.id_user,
-      (
-        staffs.map((owner) => {
-          return (
-            <MenuItem key={owner.id_user} value={owner.id_user} >
-              {owner.nama_user}
-            </MenuItem>
-          )
-        }
-        )
-      )
-    ),
+    createForm("ID Petugas", "id_user", true, false, false, payload.id_user),
     createForm("Nama Member", "id_member", false, true, true, payload.id_member,
       (
         members.map((owner) => {

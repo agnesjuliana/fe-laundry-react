@@ -187,7 +187,6 @@ export default function FrontPage() {
 
   // import styles
   const classes = useStyles();
-  let history = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -205,14 +204,13 @@ export default function FrontPage() {
         window.location = '/dashboard'
         localStorage.setItem("role", result.data.data.role)
         localStorage.setItem("token", result.data.data.token)
-
-        // set path
-        history.push("/dashboard")
+        localStorage.setItem("userId", result.data.data.id_user)
 
         handleNav(result.data.data.role)
       }
     } catch (error) {
       console.log(error)
+      window.alert('incorrect password or username')
     }
 
   };

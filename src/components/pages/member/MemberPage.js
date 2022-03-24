@@ -89,8 +89,6 @@ export default function MemberPage() {
   const [payload, setPayload] = React.useState({});
   const [action, setAction] = React.useState("");
 
-
-
   // handler modal
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
