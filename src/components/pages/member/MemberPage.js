@@ -87,7 +87,7 @@ export default function MemberPage() {
   const [rows, setRows] = React.useState([])
   const [open, setOpen] = React.useState(false);
   const [payload, setPayload] = React.useState({});
-  let action = ""
+  const [action, setAction] = React.useState("");
 
 
 
@@ -112,12 +112,12 @@ export default function MemberPage() {
   const handleUpdate = async (item) => {
     handleOpen()
     setPayload(item)
-    action = "update"
+    setAction("update")
   }
 
   const handleAdd = async () => {
     handleOpen()
-    action = "add"
+    setAction("add")
     console.log(action)
   }
 

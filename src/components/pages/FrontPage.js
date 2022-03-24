@@ -34,7 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { MainRoute } from './main/MainRoute';
+import { MainRoute } from '../../main/MainRoute';
 import getRole from '../../utils/access'
 import mdTheme from '../../utils/Style'
 
@@ -134,7 +134,8 @@ export default function FrontPage() {
     outlet: 'block',
     paket: 'block',
     user: 'block',
-    transaksi: 'block'
+    transaksi: 'block',
+    laporan: 'block'
   });
 
   const navList = [
@@ -144,6 +145,7 @@ export default function FrontPage() {
     createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'white' }} />, navlistPresence.outlet),
     createNavList('Member', '/member', <MemberIcon sx={{ color: 'white' }} />, navlistPresence.member),
     createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.transaksi),
+    createNavList('Laporan', '/generate/laporan', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.laporan),
   ]
 
 
@@ -159,13 +161,15 @@ export default function FrontPage() {
       outlet: 'block',
       paket: 'block',
       user: 'block',
-      transaksi: 'block'
+      transaksi: 'block',
+      laporan: 'block'
     }
 
     if (user === 'kasir') {
       newList.outlet = 'none'
       newList.paket = 'none'
       newList.user = 'none'
+      newList.laporan = 'none'
     }
 
     if (user === 'owner') {
