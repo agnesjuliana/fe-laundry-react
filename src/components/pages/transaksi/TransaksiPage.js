@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import transaksi from './TransaksiAPI';
@@ -19,14 +18,13 @@ import user from '../user/UserAPI';
 import member from '../member/MemberAPI';
 import paket from '../paket/PaketAPI';
 import outlet from '../outlet/OutletAPI';
-import DownloadIcon from '@mui/icons-material/Download';
 import Pdf from "react-to-pdf";
 
 import { MenuItem, Grid } from '@mui/material';
 import getRole from '../../../utils/access';
 
 // icon
-
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import EditIcon from '@mui/icons-material/Edit';
 
 function getSafe(fn, defaultVal) {
@@ -87,6 +85,7 @@ const createForm = (label, id, disabled, required, select, value, nested) => {
   return { label, id, disabled, required, select, value, nested }
 }
 
+
 const createPayload = (id_transaksi, id_user, id_member, id_outlet) => {
   return { id_transaksi, id_user, id_member, id_outlet }
 }
@@ -103,9 +102,6 @@ export default function TransaksiPage() {
     const fetchData = async () => {
       const result = await transaksi.show()
       setRows(result)
-
-      const rawUsers = await user.showKasirAdmin()
-      setStaffs(rawUsers)
 
       const rawMembers = await member.show()
       setMembers(rawMembers)
@@ -129,7 +125,6 @@ export default function TransaksiPage() {
   const [payload, setPayload] = React.useState({});
   const [bill, setBill] = React.useState({});
   const [detail, setDetail] = React.useState([]);
-  const [staffs, setStaffs] = React.useState([]);
   const [members, setMembers] = React.useState([]);
   const [pakets, setPakets] = React.useState([]);
   const [outlets, setOutlets] = React.useState([]);
@@ -175,7 +170,8 @@ export default function TransaksiPage() {
   }
 
   const handleAdd = async () => {
-    setPayload(createPayload(0, staffs[0].id_user, members[0].id_member, outlets[0].id_outlet, []))
+    const userId = localStorage.getItem("userId")
+    setPayload(createPayload(0, userId, members[0].id_member, outlets[0].id_outlet, []))
     setLists([
       { id_paket: pakets[0].id_paket, qty: 0 },
       { id_paket: pakets[0].id_paket, qty: 0 },
@@ -262,18 +258,7 @@ export default function TransaksiPage() {
 
   const formsAddTransaksi = [
     createForm("ID Transaksi", "id_transaksi", true, false, false, payload.id_transaksi),
-    createForm("Nama Petugas", "id_user", false, true, true, payload.id_user,
-      (
-        staffs.map((owner) => {
-          return (
-            <MenuItem key={owner.id_user} value={owner.id_user} >
-              {owner.nama_user}
-            </MenuItem>
-          )
-        }
-        )
-      )
-    ),
+    createForm("ID Petugas", "id_user", true, false, false, payload.id_user),
     createForm("Nama Member", "id_member", false, true, true, payload.id_member,
       (
         members.map((owner) => {
@@ -328,48 +313,48 @@ export default function TransaksiPage() {
 
   return (
     <>
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent:'center', width: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', width: '100%' }}>
         <Typography noWrap sx={{ textAlign: 'center', paddingY: '1rem', color: "#6d1b7b" }} variant='h4' component='h6'>
-          <b>Kasir Laundry</b>
+          <b>Daftar Paket Laundry</b>
         </Typography>
       </Box>
       <Box component={Paper} elevation={5} sx={{ borderRadius: 3, padding: 2, width: '100%' }}>
-      <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>#</StyledTableCell>
-              <StyledTableCell>ID</StyledTableCell>
-              <StyledTableCell>Nama Petugas</StyledTableCell>
-              <StyledTableCell>Nama Member</StyledTableCell>
-              <StyledTableCell>Tgl Diterima</StyledTableCell>
-              <StyledTableCell>Batas Waktu</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Dibayar</StyledTableCell>
-              <StyledTableCell>Action</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, i) => (
-              <StyledTableRow key={row.id_transaksi}>
-                <StyledTableCell>{i + 1}</StyledTableCell>
-                <StyledTableCell>{row.id_transaksi}</StyledTableCell>
-                <StyledTableCell>{row.user.nama_user}</StyledTableCell>
-                <StyledTableCell>{row.member.nama_member}</StyledTableCell>
-                <StyledTableCell>{row.tgl_diterima}</StyledTableCell>
-                <StyledTableCell>{row.batas_waktu}</StyledTableCell>
-                <StyledTableCell>{row.status}</StyledTableCell>
-                <StyledTableCell>{row.dibayar}</StyledTableCell>
-                <StyledTableCell>
-                  <IconButton aria-label="edit" onClick={() => handleInfo(row)}>
-                    <EditIcon />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+        <TableContainer component={Paper} elevation={0} sx={{ borderRadius: 3 }}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>#</StyledTableCell>
+                <StyledTableCell>ID</StyledTableCell>
+                <StyledTableCell>Nama Petugas</StyledTableCell>
+                <StyledTableCell>Nama Member</StyledTableCell>
+                <StyledTableCell>Tgl Diterima</StyledTableCell>
+                <StyledTableCell>Batas Waktu</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell>Dibayar</StyledTableCell>
+                <StyledTableCell>Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, i) => (
+                <StyledTableRow key={row.id_transaksi}>
+                  <StyledTableCell>{i + 1}</StyledTableCell>
+                  <StyledTableCell>{row.id_transaksi}</StyledTableCell>
+                  <StyledTableCell>{row.user.nama_user}</StyledTableCell>
+                  <StyledTableCell>{row.member.nama_member}</StyledTableCell>
+                  <StyledTableCell>{row.tgl_diterima}</StyledTableCell>
+                  <StyledTableCell>{row.batas_waktu}</StyledTableCell>
+                  <StyledTableCell>{row.status}</StyledTableCell>
+                  <StyledTableCell>{row.dibayar}</StyledTableCell>
+                  <StyledTableCell>
+                    <IconButton aria-label="edit" onClick={() => handleInfo(row)}>
+                      <EditIcon />
+                    </IconButton>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'end', width: '100%' }}>
         <Button
@@ -379,7 +364,7 @@ export default function TransaksiPage() {
           onClick={() => handleAdd()}
           color="secondary"
         >
-          Tambah Transaksi
+          Tambah Taransaksi
         </Button>
       </Box>
 
@@ -468,8 +453,8 @@ export default function TransaksiPage() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2, borderRadius: 5 }}
-                color="primary"
+                sx={{ mt: 3, mb: 2 }}
+                color="secondary"
               >
                 Submit
               </Button>

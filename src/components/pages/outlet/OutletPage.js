@@ -131,7 +131,7 @@ export default function OutletPage() {
   }
 
   const handleAdd = async () => {
-    // setPayload(createPayload(0, "", "", ""))
+    setPayload({})
     handleOpen()
     // setAction("add")
   }

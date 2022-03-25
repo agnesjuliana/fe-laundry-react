@@ -15,7 +15,6 @@ import transaksi from "../transaksi/TransaksiAPI";
 import { Grid } from "@mui/material";
 import getRole from "../../../utils/access";
 
-// icon
 
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -84,9 +83,16 @@ export default function GenerateLaporan() {
       window.location = "/denied";
     }
 
+    const userId = localStorage.getItem("userId")
+
     const fetchData = async () => {
-      const result = await transaksi.show();
-      setRows(result);
+      if (User === 'owner') {
+        const resultOwner = await transaksi.filterOwner(userId)
+        setRows(resultOwner);
+      } else {
+        const result = await transaksi.show();
+        setRows(result);
+      }
     };
 
     fetchData();
@@ -148,6 +154,16 @@ export default function GenerateLaporan() {
         }}
       >
         <div ref={ref}>
+          <Box sx={{ display: 'flex', width: "100%", justifyContent: "flex-start", mb: 3 }}>
+            <Pdf targetRef={ref} filename="struk-pembayaran.pdf" x={.5} y={.5} scale={0.7}>
+              {({ toPdf }) =>
+                <Button variant="contained"
+                  color='secondary' onClick={toPdf}>
+                  Download
+                </Button>
+              }
+            </Pdf>
+          </Box>
           <TableContainer>
             <Table sx={{ minWidth: 700 }} aria-label="customized table">
               <TableHead>
@@ -158,6 +174,8 @@ export default function GenerateLaporan() {
                   <StyledTableCell>ID</StyledTableCell>
                   <StyledTableCell>Nama Petugas</StyledTableCell>
                   <StyledTableCell>Nama Member</StyledTableCell>
+                  <StyledTableCell>Outlet</StyledTableCell>
+                  <StyledTableCell>Owner</StyledTableCell>
                   <StyledTableCell>Tgl Diterima</StyledTableCell>
                   <StyledTableCell>Batas Waktu</StyledTableCell>
                   <StyledTableCell>Status</StyledTableCell>
@@ -172,6 +190,8 @@ export default function GenerateLaporan() {
                     <StyledTableCell>{row.id_transaksi}</StyledTableCell>
                     <StyledTableCell>{row.user.nama_user}</StyledTableCell>
                     <StyledTableCell>{row.member.nama_member}</StyledTableCell>
+                    <StyledTableCell>{row.outlet.alamat}</StyledTableCell>
+                    <StyledTableCell>{row.outlet.user.nama_user}</StyledTableCell>
                     <StyledTableCell>{row.tgl_diterima}</StyledTableCell>
                     <StyledTableCell>{row.batas_waktu}</StyledTableCell>
                     <StyledTableCell>{row.status}</StyledTableCell>
@@ -195,18 +215,6 @@ export default function GenerateLaporan() {
               </TableBody>
             </Table>
           </TableContainer>
-
-
-          <Box sx={{ display: 'flex', width: "100%", justifyContent: "flex-end" }}>
-            <Pdf targetRef={ref} filename="struk-pembayaran.pdf" x={.5} y={.5} scale={0.8}>
-              {({ toPdf }) =>
-                <Button variant="contained"
-                  color='secondary' onClick={toPdf}>
-                  Download
-                </Button>
-              }
-            </Pdf>
-          </Box>
         </div>
       </Paper>
 

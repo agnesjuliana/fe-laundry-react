@@ -267,6 +267,7 @@ export default function UserPage() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+                color="secondary"
               >
                 Submit
               </Button>
