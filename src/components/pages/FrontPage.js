@@ -34,7 +34,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { MainRoute } from './main/MainRoute';
+import { MainRoute } from '../../main/MainRoute';
 import getRole from '../../utils/access'
 import mdTheme from '../../utils/Style'
 
@@ -126,16 +126,18 @@ export default function FrontPage() {
     outlet: 'block',
     paket: 'block',
     user: 'block',
-    transaksi: 'block'
+    transaksi: 'block',
+    laporan: 'block'
   });
 
   const navList = [
-    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{color:'white'}}/>, navlistPresence.dashboard),
+    createNavList('Dashboard', '/dashboard', <DashboardIcon sx={{ color: 'white' }} />, navlistPresence.dashboard),
     createNavList('User', '/user', <UserIcon sx={{ color: 'white' }} />, navlistPresence.user),
     createNavList('Paket', '/paket', <PaketIcon sx={{ color: 'white' }} />, navlistPresence.paket),
-    createNavList('Outlet', '/outlet', <OutletIcon sx={{color:'white'}}/>, navlistPresence.outlet),
+    createNavList('Outlet', '/outlet', <OutletIcon sx={{ color: 'white' }} />, navlistPresence.outlet),
     createNavList('Member', '/member', <MemberIcon sx={{ color: 'white' }} />, navlistPresence.member),
-    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{color:'white'}}/>, navlistPresence.transaksi),
+    createNavList('Kasir', '/transaksi', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.transaksi),
+    createNavList('Laporan', '/generate/laporan', <TransaksiIcon sx={{ color: 'white' }} />, navlistPresence.laporan),
   ]
 
 
@@ -151,13 +153,15 @@ export default function FrontPage() {
       outlet: 'block',
       paket: 'block',
       user: 'block',
-      transaksi: 'block'
+      transaksi: 'block',
+      laporan: 'block'
     }
 
     if (user === 'kasir') {
       newList.outlet = 'none'
       newList.paket = 'none'
       newList.user = 'none'
+      newList.laporan = 'none'
     }
 
     if (user === 'owner') {
@@ -271,7 +275,7 @@ export default function FrontPage() {
                     <Button
                       type="submit"
                       variant="contained"
-                      sx={{ mt: 3, mb: 2, width: '30%', left: '35%'}}
+                      sx={{ mt: 3, mb: 2, width: '30%', left: '35%' }}
                       color='secondary'
                     >
                       Sign In
@@ -314,8 +318,8 @@ export default function FrontPage() {
                 >
                   <b>Cling Laundry</b>
                 </Typography>
-                <IconButton color="inherit" onClick={()=>handleLogout()}>
-                    <LogoutIcon />
+                <IconButton color="inherit" onClick={() => handleLogout()}>
+                  <LogoutIcon />
                 </IconButton>
               </Toolbar>
             </AppBar>
@@ -332,7 +336,7 @@ export default function FrontPage() {
                   <ChevronLeftIcon />
                 </IconButton>
               </Toolbar>
-              <Divider/>
+              <Divider />
               <List component="nav" >
                 {
                   navList.map(item => (
@@ -361,7 +365,7 @@ export default function FrontPage() {
               }}
             >
               <Toolbar />
-              <Container maxWidth="lg" sx={{ mt: 4, mb: 4}}>
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                   <MainRoute />
                 </Grid>
