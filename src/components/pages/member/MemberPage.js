@@ -22,6 +22,7 @@ import getRole from '../../../utils/access';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { MenuItem } from '@mui/material';
 
 
 const styleModal = {
@@ -59,9 +60,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const createForm = (label, id, disabled, required, value) => {
-  return { label, id, disabled, required, value }
+const createForm = (label, id, disabled, required, select, value, nested) => {
+  return { label, id, disabled, required, select, value, nested }
 }
+
 
 const createPayload = (id_member, nama_member, alamat, jenis_kelamin, telp) => {
   return { id_member, nama_member, alamat, jenis_kelamin, telp}
@@ -148,12 +150,24 @@ export default function MemberPage() {
     }    
   };
 
+  const gender = ["perempuan", "laki-laki"]
+
   const forms = [
-    createForm("ID Member", "id_member", true, false, payload.id_member),
-    createForm("Nama Member", "nama_member", false, true, payload.nama_member),
-    createForm("Alamat", "alamat", false, true, payload.alamat),
-    createForm("Jenis Kelamin", "jenis_kelamin", false, true, payload.jenis_kelamin),
-    createForm("No. Telpon", "telp", false, true, payload.telp)
+    createForm("ID Member", "id_member", true, false, false, payload.id_member),
+    createForm("Nama Member", "nama_member", false, true, false, payload.nama_member),
+    createForm("Alamat", "alamat", false, true, false, payload.alamat),
+    createForm("Jenis Kelamin", "jenis_kelamin", false, true, true, payload.jenis_kelamin,
+      (
+        gender.map((item) => {
+          return (
+            <MenuItem key={item} value={item} >
+              {item}
+            </MenuItem>
+          )
+        }
+        )
+      )),
+    createForm("No. Telpon", "telp", false, true, false, payload.telp)
   ]
 
   return (
@@ -238,6 +252,7 @@ export default function MemberPage() {
                   onChange={(e) => setPayload({ ...payload, [form.id]: e.target.value })}
                   disabled={form.disabled}
                   required={form.required}
+                  select={form.select}
                   value={form.value}
                   margin="normal"
                   fullWidth
@@ -246,7 +261,10 @@ export default function MemberPage() {
                   name={form.id}
                   size='small'
                   InputLabelProps={{ shrink: true }}
-                />
+                  sx={{ textAlign: "left" }}
+                >
+                  {form.nested}
+                </TextField>
               ))}
 
               <Button
