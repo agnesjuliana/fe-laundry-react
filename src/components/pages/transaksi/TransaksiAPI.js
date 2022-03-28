@@ -100,6 +100,25 @@ const count = async () => {
   }
 }
 
+const filterOwner = async (payload) => {
+  try {
+    let result = await show()
+    if (result !== null) {
+      let filterData = []
+      result.map((item) => {
+        if (item.outlet.id_user == payload) {
+          filterData.push(item)
+        }
+      })
 
-export default {show, add, showOne, bayar, updateStatus, count}
+      return filterData
+    }
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+
+export default {show, add, showOne, bayar, updateStatus, count, filterOwner}
 

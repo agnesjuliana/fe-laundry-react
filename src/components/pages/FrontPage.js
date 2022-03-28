@@ -14,7 +14,6 @@ import Grid from "@mui/material/Grid";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Button from "@mui/material/Button";
-// import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -212,27 +211,27 @@ export default function FrontPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const payload = {
-      username: data.get("username"),
-      password: data.get("password"),
-    };
+      username: data.get('username'),
+      password: data.get('password'),
+    }
 
-    localStorage.setItem("role", "owner");
-
-    const url = base_url + "/user/login";
+    const url = base_url + '/user/login'
 
     try {
-      let result = await axios.post(url, payload);
+      let result = await axios.post(url, payload)
       if (result.status === 200) {
-        window.location = "/dashboard";
-        localStorage.setItem("role", result.data.data.role);
-        localStorage.setItem("token", result.data.data.token);
+        window.location = '/dashboard'
+        localStorage.setItem("role", result.data.data.role)
+        localStorage.setItem("token", result.data.data.token)
         localStorage.setItem("userId", result.data.data.id_user)
 
-        handleNav(result.data.data.role);
+        handleNav(result.data.data.role)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
+      window.alert('incorrect password or username')
     }
+
   };
 
   const handleLogout = () => {

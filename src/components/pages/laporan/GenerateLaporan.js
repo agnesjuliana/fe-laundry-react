@@ -85,9 +85,16 @@ export default function GenerateLaporan() {
       window.location = "/denied";
     }
 
+    const userId = localStorage.getItem("userId")
+
     const fetchData = async () => {
-      const result = await transaksi.show();
-      setRows(result);
+      if (User === 'owner') {
+        const resultOwner = await transaksi.filterOwner(userId)
+        setRows(resultOwner);
+      } else {
+        const result = await transaksi.show();
+        setRows(result);
+      }
     };
 
     fetchData();
